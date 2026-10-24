@@ -1,508 +1,173 @@
-// ============================================================
-// QOSAIN BUKHARI PORTFOLIO — INTERACTIVE & FRAMER MOTION ENGINE
-// Features: Parallax Scrolling Curved Yellow Background,
-// Framer Motion Physics Springs, Staggered Entrances,
-// Project Category Filter, Accordions, Architecture Lab, Email Copier
-// ============================================================
+// Plots for the engineering-pad portfolio. Every number here is from a project repo.
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  const Motion = window.Motion;
-  const hasMotion = typeof Motion !== 'undefined';
-
-  /* ================= 1. MOBILE NAVIGATION ================= */
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  const navBackdrop = document.getElementById('navBackdrop');
-
-  function openNav() {
-    navLinks?.classList.add('open');
-    navBackdrop?.classList.add('active');
-    navToggle?.classList.add('open');
-    navToggle?.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-
-    if (hasMotion && Motion.animate) {
-      Motion.animate('.nav-links.open .nav-link, .nav-links.open .nav-cta', {
-        opacity: [0, 1],
-        x: [24, 0]
-      }, {
-        delay: Motion.stagger(0.04),
-        duration: 0.35,
-        easing: [0.16, 1, 0.3, 1]
-      });
-    }
+  function el(name, attrs, parent, text) {
+    const n = document.createElementNS(NS, name);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text !== undefined) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
   }
 
-  function closeNav() {
-    navLinks?.classList.remove('open');
-    navBackdrop?.classList.remove('active');
-    navToggle?.classList.remove('open');
-    navToggle?.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
+  // Hatching patterns, like plotter fills.
+  function addHatches(svg) {
+    const defs = el("defs", {}, svg);
+    [["hatch-ink", "#1d2b53"], ["hatch-pen", "#b8322a"], ["hatch-pencil", "#5c665e"]].forEach(([id, c]) => {
+      const p = el("pattern", { id, width: 7, height: 7, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+      el("rect", { width: 7, height: 7, fill: "#e5eddc" }, p);
+      el("line", { x1: 0, y1: 0, x2: 0, y2: 7, stroke: c, "stroke-width": 2.4 }, p);
+    });
   }
 
-  navToggle?.addEventListener('click', () => {
-    if (navLinks?.classList.contains('open')) {
-      closeNav();
+  // ---------- Fig. 1: YOLOv12 training curve (validation mAP@50 per epoch) ----------
+  const map50 = [0.05884, 0.18703, 0.22926, 0.44011, 0.54654, 0.63878, 0.68028, 0.62331, 0.70266, 0.7246,
+    0.72868, 0.77622, 0.77985, 0.80958, 0.83454, 0.82961, 0.84389, 0.85124, 0.86424, 0.86562,
+    0.87836, 0.88156, 0.88447, 0.88444, 0.89041, 0.89006, 0.89471, 0.89578, 0.89968, 0.89971,
+    0.90297, 0.90619, 0.90591, 0.90788, 0.90803, 0.91075, 0.91253, 0.91145, 0.91207, 0.9128];
+
+  function trainingPlot(svg, animate) {
+    const W = Math.max(330, Math.min(640, svg.parentElement.clientWidth || 640));
+    const narrow = W < 480;
+    const H = narrow ? 360 : 440;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const L = 62, R = W - 26, T = 30, B = H - 60;
+    const x = (e) => L + ((e - 1) / 39) * (R - L);
+    const y = (v) => B - v * (B - T);
+
+    // axes
+    el("path", { class: "axis", d: `M${L} ${T - 10} V${B} H${R + 10}` }, svg);
+    [0, 0.25, 0.5, 0.75, 1].forEach((v) => {
+      el("line", { class: "tick", x1: L - 7, x2: L, y1: y(v), y2: y(v) }, svg);
+      el("text", { class: "tick-label", x: L - 12, y: y(v) + 4, "text-anchor": "end" }, svg, v.toFixed(2));
+    });
+    [1, 10, 20, 30, 40].forEach((e) => {
+      el("line", { class: "tick", x1: x(e), x2: x(e), y1: B, y2: B + 7 }, svg);
+      el("text", { class: "tick-label", x: x(e), y: B + 24, "text-anchor": "middle" }, svg, e);
+    });
+    el("text", { class: "axis-title", x: (L + R) / 2, y: B + 50, "text-anchor": "middle" }, svg, "Epoch");
+    el("text", { class: "axis-title", x: 18, y: (T + B) / 2, "text-anchor": "middle", transform: `rotate(-90 18 ${(T + B) / 2})` }, svg, "Validation mAP@50");
+
+    // the curve
+    const d = map50.map((v, i) => `${i ? "L" : "M"}${x(i + 1).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+    const curve = el("path", { class: "curve", d }, svg);
+    const pts = el("g", {}, svg);
+    map50.forEach((v, i) => { if (i % 3 === 0 || i === 39) el("circle", { class: "pt", cx: x(i + 1), cy: y(v), r: 3.6 }, pts); });
+
+    // red-pen annotations
+    const notes = el("g", { class: "notes" }, svg);
+    if (narrow) {
+      el("path", { class: "hand-line", d: `M${x(40) - 2} ${y(0.9128) + 10} q -6 40 -40 56` }, notes);
+      el("text", { class: "hand", x: x(40) - 46, y: y(0.9128) + 86, "text-anchor": "end" }, notes, "0.913 at epoch 40");
+      el("text", { class: "hand", x: x(40) - 46, y: y(0.9128) + 108, "text-anchor": "end" }, notes, "(test set: 0.899)");
     } else {
-      openNav();
-    }
-  });
-
-  navBackdrop?.addEventListener('click', closeNav);
-
-  navLinks?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', closeNav);
-  });
-
-  /* ================= 2. PARALLAX SCROLL FOR CURVED YELLOW BACKGROUNDS ================= */
-  const aboutSection = document.getElementById('about');
-  const curveHalfShape = document.getElementById('curveHalfShape');
-  const curveAmbientGlow = document.querySelector('.curve-ambient-glow');
-  const curveEdgeLine = document.querySelector('.curve-edge-line');
-  const heroCurve = document.querySelector('.curve-shape-hero');
-  const resumeCurve = document.querySelector('.curve-shape-resume');
-
-  let ticking = false;
-
-  function updateParallaxCurves() {
-    const scrollY = window.scrollY;
-    const windowH = window.innerHeight;
-
-    // 1. Hero Ambient Curve Movement
-    if (heroCurve) {
-      const heroOffset = scrollY * 0.22;
-      heroCurve.style.transform = `translate3d(0, ${heroOffset}px, 0) rotate(${heroOffset * 0.04}deg)`;
+      el("path", { class: "hand-line", d: `M${x(8) + 6} ${y(0.62) + 8} q 30 50 70 56` }, notes);
+      el("text", { class: "hand", x: x(8) + 80, y: y(0.62) + 70 }, notes, "epoch 8: a dip, then it recovers");
+      el("path", { class: "hand-line", d: `M${x(40) - 4} ${y(0.9128) + 10} q -10 50 -60 70` }, notes);
+      el("text", { class: "hand", x: x(40) - 70, y: y(0.9128) + 104, "text-anchor": "end" }, notes, "0.913 at epoch 40");
+      el("text", { class: "hand", x: x(40) - 70, y: y(0.9128) + 128, "text-anchor": "end" }, notes, "(test set: 0.899)");
     }
 
-    // 2. About Section — Sweeping Yellow Curved Background Moving Behind
-    if (aboutSection && (curveHalfShape || curveAmbientGlow)) {
-      const rect = aboutSection.getBoundingClientRect();
-      if (rect.top < windowH && rect.bottom > 0) {
-        // Compute relative scroll progress across the About section (0 to 1)
-        const progress = (windowH - rect.top) / (windowH + rect.height);
-        const shiftY = (progress - 0.5) * 160;
-        const rotateDeg = -4 + (progress - 0.5) * 14;
-        const scaleVal = 1 + Math.sin(progress * Math.PI) * 0.05;
-
-        if (curveHalfShape) {
-          curveHalfShape.style.transform = `translate3d(0, ${shiftY}px, 0) rotate(${rotateDeg}deg) scale(${scaleVal})`;
-        }
-        if (curveAmbientGlow) {
-          curveAmbientGlow.style.transform = `translate3d(0, ${shiftY * 1.3}px, 0) scale(${scaleVal * 1.05})`;
-        }
-        if (curveEdgeLine) {
-          curveEdgeLine.style.transform = `translate3d(0, ${shiftY * 0.7}px, 0) rotate(${6 - (progress - 0.5) * 10}deg)`;
-        }
-      }
+    if (animate && !reduceMotion) {
+      const len = curve.getTotalLength();
+      curve.style.strokeDasharray = len;
+      curve.style.strokeDashoffset = len;
+      pts.style.opacity = 0;
+      notes.style.opacity = 0;
+      requestAnimationFrame(() => {
+        curve.style.transition = "stroke-dashoffset 2.2s cubic-bezier(.45,.05,.3,1)";
+        curve.style.strokeDashoffset = 0;
+        pts.style.transition = "opacity .5s 1.9s";
+        notes.style.transition = "opacity .6s 2.3s";
+        pts.style.opacity = 1;
+        notes.style.opacity = 1;
+      });
     }
-
-    // 3. Resume Section Curve
-    if (resumeCurve) {
-      const resumeSec = document.getElementById('resume');
-      if (resumeSec) {
-        const rect = resumeSec.getBoundingClientRect();
-        if (rect.top < windowH && rect.bottom > 0) {
-          const progress = (windowH - rect.top) / (windowH + rect.height);
-          const shiftY = (progress - 0.5) * 80;
-          resumeCurve.style.transform = `translate3d(0, ${shiftY}px, 0)`;
-        }
-      }
-    }
-
-    ticking = false;
   }
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallaxCurves);
-      ticking = true;
-    }
-  }, { passive: true });
+  // ---------- Horizontal bar plots ----------
+  function barPlot(svg) {
+    const bars = JSON.parse(svg.dataset.bars);
+    const min = parseFloat(svg.dataset.min || "0");
+    const max = parseFloat(svg.dataset.max);
+    const unit = svg.dataset.unit || "";
+    const W = Math.max(280, Math.min(520, svg.parentElement.clientWidth || 520));
+    const stacked = W < 440;                       // labels above bars on phones
+    const labelW = stacked ? 0 : 170;
+    const rowH = stacked ? 58 : 46;
+    const T = stacked ? 52 : 40, L = stacked ? 4 : labelW + 10, R = W - 70;
+    const H = T + bars.length * rowH + 44;
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    addHatches(svg);
+    const x = (v) => L + ((v - min) / (max - min)) * (R - L);
+    const B = T + bars.length * rowH;
 
-  // Initial trigger
-  updateParallaxCurves();
-
-  /* ================= 3. FRAMER MOTION / SCROLL REVEALS ================= */
-  if (hasMotion && Motion.animate && Motion.inView) {
-    // Hero entrance with Framer Motion spring stagger
-    Motion.animate('.hero .reveal', {
-      opacity: [0, 1],
-      y: [28, 0]
-    }, {
-      delay: Motion.stagger ? Motion.stagger(0.1) : 0.1,
-      duration: 0.75,
-      easing: [0.16, 1, 0.3, 1]
-    });
-
-    // Scroll reveal with Framer Motion inView
-    document.querySelectorAll('section').forEach(sec => {
-      Motion.inView(sec, () => {
-        const reveals = sec.querySelectorAll('.reveal');
-        if (reveals.length > 0) {
-          Motion.animate(reveals, {
-            opacity: [0, 1],
-            y: [22, 0]
-          }, {
-            delay: Motion.stagger ? Motion.stagger(0.08) : 0.05,
-            duration: 0.65,
-            easing: [0.16, 1, 0.3, 1]
-          });
-          reveals.forEach(r => r.classList.add('in'));
-        }
-      }, { margin: '0px 0px -40px 0px' });
-    });
-  } else {
-    // Fallback using standard IntersectionObserver
-    const revealElements = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      revealElements.forEach(el => io.observe(el));
+    const title = svg.dataset.label;
+    if (stacked && title.includes(" — ")) {
+      const [t1, t2] = title.split(" — ");
+      el("text", { class: "axis-title", x: L, y: 18 }, svg, t1);
+      el("text", { class: "tick-label", x: L, y: 36 }, svg, t2);
     } else {
-      revealElements.forEach(el => el.classList.add('in'));
+      el("text", { class: "axis-title", x: L, y: 22 }, svg, title);
     }
-  }
-
-  /* ================= 4. ACTIVE NAV LINK ON SCROLL ================= */
-  const sections = document.querySelectorAll('section[id], header[id]');
-  const navAnchors = document.querySelectorAll('.nav-link');
-
-  function updateActiveNav() {
-    const scrollY = window.scrollY + 120;
-    sections.forEach(sec => {
-      const top = sec.offsetTop;
-      const height = sec.offsetHeight;
-      const id = sec.getAttribute('id');
-      if (scrollY >= top && scrollY < top + height) {
-        navAnchors.forEach(a => {
-          if (a.getAttribute('href') === `#${id}`) {
-            a.classList.add('active');
-          } else {
-            a.classList.remove('active');
-          }
-        });
-      }
+    el("path", { class: "axis", d: `M${L} ${T - 6} V${B} H${R + 8}` }, svg);
+    const steps = stacked ? 2 : 4;
+    for (let i = 0; i <= steps; i++) {
+      const v = min + ((max - min) * i) / steps;
+      el("line", { class: "tick", x1: x(v), x2: x(v), y1: B, y2: B + 6 }, svg);
+      const txt = unit === "€" ? "€" + Math.round(v) : (Number.isInteger(v) ? v : v.toFixed(1)) + "%";
+      el("text", { class: "tick-label", x: x(v), y: B + 22, "text-anchor": i === 0 && stacked ? "start" : "middle" }, svg, txt);
+    }
+    bars.forEach(([label, value, kind], i) => {
+      const yTop = T + i * rowH + (stacked ? 20 : 8);
+      if (stacked) el("text", { class: "bar-label", x: L + 8, y: yTop - 6 }, svg, label);
+      else el("text", { class: "bar-label", x: labelW, y: yTop + 19, "text-anchor": "end" }, svg, label);
+      el("rect", { class: "bar" + (kind ? " " + kind : ""), x: L, y: yTop, width: Math.max(2, x(value) - L), height: 26 }, svg);
+      const txt = unit === "€" ? "€" + value.toFixed(2) : value.toFixed(1) + "%";
+      el("text", { class: "bar-value" + (kind === "pen" ? " pen" : ""), x: x(value) + 8, y: yTop + 20 }, svg, txt);
     });
   }
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
 
-  /* ================= 5. PROJECT CATEGORY FILTER ================= */
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.sys-card');
-
-  // Dynamically compute and populate counts
-  const counts = { all: projectCards.length, genai: 0, cv: 0, mlops: 0 };
-  projectCards.forEach(card => {
-    const cat = card.dataset.category;
-    if (counts[cat] !== undefined) counts[cat]++;
-  });
-
-  const elAll = document.getElementById('count-all');
-  const elGenai = document.getElementById('count-genai');
-  const elCv = document.getElementById('count-cv');
-  const elMlops = document.getElementById('count-mlops');
-  if (elAll) elAll.textContent = counts.all;
-  if (elGenai) elGenai.textContent = counts.genai;
-  if (elCv) elCv.textContent = counts.cv;
-  if (elMlops) elMlops.textContent = counts.mlops;
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      filterBtns.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-
-      const matchedCards = [];
-
-      projectCards.forEach(card => {
-        const category = card.dataset.category;
-        if (filter === 'all' || category === filter) {
-          card.classList.remove('filtered-out');
-          card.classList.add('in');
-          matchedCards.push(card);
-        } else {
-          card.classList.add('filtered-out');
-        }
-      });
-
-      // Framer Motion spring layout entrance on filter change
-      if (hasMotion && Motion.animate && matchedCards.length > 0) {
-        Motion.animate(matchedCards, {
-          opacity: [0, 1],
-          y: [16, 0],
-          scale: [0.97, 1]
-        }, {
-          delay: Motion.stagger ? Motion.stagger(0.06) : 0.04,
-          duration: 0.45,
-          easing: [0.16, 1, 0.3, 1]
-        });
-      }
-    });
-  });
-
-  /* ================= 6. PROJECT ACCORDIONS ================= */
-  document.querySelectorAll('[data-toggle]').forEach(toggle => {
-    const card = toggle.closest('.sys-card');
-    const body = card?.querySelector('.sys-body');
-    if (!card || !body) return;
-
-    const toggleOpen = () => {
-      const isOpen = card.classList.contains('open');
-      if (isOpen) {
-        card.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        body.style.maxHeight = '0px';
-      } else {
-        card.classList.add('open');
-        toggle.setAttribute('aria-expanded', 'true');
-        body.style.maxHeight = body.scrollHeight + 'px';
-
-        // Framer Motion spring expand effect on inner contents
-        if (hasMotion && Motion.animate) {
-          const innerItems = body.querySelectorAll('.sys-inner > div');
-          Motion.animate(innerItems, {
-            opacity: [0, 1],
-            y: [14, 0]
-          }, {
-            delay: Motion.stagger ? Motion.stagger(0.05) : 0.05,
-            duration: 0.4,
-            easing: [0.16, 1, 0.3, 1]
-          });
-        }
-      }
+  // ---------- Fig. 7: the train/eval overlap in the Chest CT project ----------
+  function leakPlot(svg) {
+    const W = Math.max(300, Math.min(520, svg.parentElement.clientWidth || 520));
+    svg.setAttribute("viewBox", `0 0 ${W} 240`);
+    addHatches(svg);
+    const L = 14, R = W - 20, x = (p) => L + (p / 100) * (R - L);
+    const row = (yy, a, b, cls, label) => {
+      el("text", { class: "bar-label", x: L, y: yy - 8 }, svg, label);
+      el("rect", { class: "bar " + cls, x: x(a), y: yy, width: x(b) - x(a), height: 26 }, svg);
     };
-
-    toggle.addEventListener('click', toggleOpen);
-    toggle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggleOpen();
-      }
+    row(40, 20, 100, "", "Training images (20–100%)");
+    row(110, 0, 30, "pen", "“Unseen” evaluation images (0–30%)");
+    // overlap marks
+    el("line", { class: "hand-line", x1: x(20), x2: x(20), y1: 34, y2: 146, "stroke-dasharray": "5 5" }, svg);
+    el("line", { class: "hand-line", x1: x(30), x2: x(30), y1: 34, y2: 146, "stroke-dasharray": "5 5" }, svg);
+    el("path", { class: "hand-line", d: `M${x(25)} 150 q 10 30 50 34` }, svg);
+    el("text", { class: "hand", x: x(25) + 56, y: 190 }, svg, W < 420 ? "seen in training!" : "seen in training! → fake 100%");
+    // scale
+    el("path", { class: "axis", d: `M${L} 210 H${R}` }, svg);
+    [0, 20, 30, 50, 100].forEach((p) => {
+      el("line", { class: "tick", x1: x(p), x2: x(p), y1: 204, y2: 216 }, svg);
+      el("text", { class: "tick-label", x: x(p), y: 230, "text-anchor": "middle" }, svg, p + "%");
     });
-  });
-
-  // Recompute accordion height on window resize
-  window.addEventListener('resize', () => {
-    document.querySelectorAll('.sys-card.open').forEach(card => {
-      const body = card.querySelector('.sys-body');
-      if (body) {
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
-    });
-  }, { passive: true });
-
-  /* ================= 7. ARCHITECTURE LAB ================= */
-  const labPipelines = {
-    finetuning: {
-      badge: 'PIPELINE: LLM FINE-TUNING & QUANTIZATION',
-      desc: 'Instruction dataset preparation -> QLoRA 4-bit SFT -> Adapter Merge -> GGUF / AWQ Quantization -> vLLM Serving.',
-      nodes: [
-        'INSTRUCTION DATA (JSONL)',
-        'TOKENIZATION',
-        '4-BIT NF4 BASE LLM',
-        'LoRA ADAPTER TARGETS',
-        'TRL SFTTRAINER',
-        'ADAPTER MERGE',
-        'GGUF / AWQ EXPORT',
-        'vLLM / OLLAMA SERVING'
-      ]
-    },
-    rag: {
-      badge: 'PIPELINE: AGENTIC RAG & RETRIEVAL',
-      desc: 'PDF parsing -> Recursive chunking -> Vector Embeddings -> ChromaDB -> Llama 3 Inference -> Grounded Answer.',
-      nodes: [
-        'INPUT DOCUMENTS (PDF)',
-        'RECURSIVE CHUNKER',
-        'EMBEDDINGS (HF)',
-        'CHROMADB VECTOR DB',
-        'SIMILARITY RETRIEVER',
-        'LLAMA 3 (GROQ)',
-        'GROUNDED CITATIONS'
-      ]
-    },
-    cv: {
-      badge: 'PIPELINE: REAL-TIME COMPUTER VISION (YOLOv12)',
-      desc: 'Video feed -> Low-latency YOLOv12 inference -> Bounding box tracking -> FastAPI event queue -> SMTP Alert.',
-      nodes: [
-        'VIDEO STREAM / CCTV',
-        'FRAME INGESTION',
-        'YOLOv12 INFERENCE',
-        'CONFIDENCE FILTER',
-        'FASTAPI ASYNC QUEUE',
-        'DATABASE LOG',
-        'SMTP ALERT DISPATCH'
-      ]
-    },
-    mlops: {
-      badge: 'PIPELINE: MLOPS & AUTOMATED CI/CD',
-      desc: 'DVC data versioning -> MLflow experiment tracking -> Automated Pytest -> Docker build -> GitHub Actions.',
-      nodes: [
-        'DVC DATA STORE',
-        'DATA PREPROCESSING',
-        'MLFLOW RUN TRACKING',
-        'PYTEST TEST SUITE',
-        'DOCKER CONTAINER',
-        'GITHUB ACTIONS CI',
-        'DEPLOYED SERVICE'
-      ]
-    },
-    api: {
-      badge: 'PIPELINE: PRODUCTION FASTAPI SERVICE',
-      desc: 'Client request -> JWT Auth -> Pydantic validation -> Async model run -> SQLAlchemy ORM -> Response.',
-      nodes: [
-        'CLIENT REQUEST',
-        'JWT AUTH & RATE LIMIT',
-        'PYDANTIC VALIDATION',
-        'ASYNC MODEL RUN',
-        'SQLAlchemy ORM',
-        'STRUCTURED RESPONSE'
-      ]
-    }
-  };
-
-  const labBadge = document.getElementById('labBadge');
-  const labDesc = document.getElementById('labDesc');
-  const labDiagram = document.getElementById('labDiagram');
-  const labTabs = document.querySelectorAll('.lab-tab');
-
-  function renderLab(key) {
-    const pipeline = labPipelines[key];
-    if (!pipeline || !labDiagram) return;
-
-    if (labBadge) labBadge.textContent = pipeline.badge;
-    if (labDesc) labDesc.textContent = pipeline.desc;
-
-    labDiagram.innerHTML = '';
-    pipeline.nodes.forEach((n, i) => {
-      const node = document.createElement('div');
-      node.className = 'lab-node';
-      node.textContent = n;
-      labDiagram.appendChild(node);
-
-      if (i < pipeline.nodes.length - 1) {
-        const arrow = document.createElement('span');
-        arrow.className = 'lab-arrow';
-        arrow.textContent = '→';
-        arrow.setAttribute('aria-hidden', 'true');
-        labDiagram.appendChild(arrow);
-      }
-    });
-
-    // Framer Motion spring stagger animation on new pipeline nodes
-    if (hasMotion && Motion.animate) {
-      Motion.animate('.lab-node, .lab-arrow', {
-        opacity: [0, 1],
-        scale: [0.88, 1],
-        y: [8, 0]
-      }, {
-        delay: Motion.stagger ? Motion.stagger(0.035) : 0.02,
-        duration: 0.4,
-        easing: [0.16, 1, 0.3, 1]
-      });
-    }
   }
 
-  labTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      labTabs.forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      renderLab(tab.dataset.lab);
-    });
-  });
-
-  // Initial render
-  renderLab('finetuning');
-
-  /* ================= 8. TOAST NOTIFICATION HELPER ================= */
-  const toastEl = document.getElementById('toast');
-  let toastTimer = null;
-
-  function showToast(message) {
-    if (!toastEl) return;
-    toastEl.textContent = message;
-    toastEl.classList.add('show');
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toastEl.classList.remove('show');
-    }, 3200);
+  function clear(svg) { [...svg.childNodes].forEach((n) => { if (n.nodeName !== "title" && n.nodeName !== "desc") svg.removeChild(n); }); }
+  function renderAll(animate) {
+    const tp = document.getElementById("trainingPlot");
+    if (tp) { clear(tp); trainingPlot(tp, animate); }
+    document.querySelectorAll("svg.bars").forEach((s) => { clear(s); barPlot(s); });
+    const lk = document.getElementById("leakPlot");
+    if (lk) { clear(lk); leakPlot(lk); }
   }
-
-  /* ================= 9. COPY EMAIL BUTTON ================= */
-  const copyEmailBtn = document.getElementById('copyEmailBtn');
-  const emailText = document.getElementById('emailText');
-
-  copyEmailBtn?.addEventListener('click', () => {
-    const email = emailText?.textContent?.trim() || 'bukhariqosain824@gmail.com';
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(email).then(() => {
-        showToast('✓ Email address copied to clipboard!');
-      }).catch(() => {
-        fallbackCopy(email);
-      });
-    } else {
-      fallbackCopy(email);
-    }
+  renderAll(true);
+  let lastW = window.innerWidth, timer;
+  window.addEventListener("resize", () => {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(timer);
+    timer = setTimeout(() => renderAll(false), 150);
   });
-
-  function fallbackCopy(text) {
-    const tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    try {
-      document.execCommand('copy');
-      showToast('✓ Email address copied to clipboard!');
-    } catch (e) {
-      showToast('Email: bukhariqosain824@gmail.com');
-    }
-    document.body.removeChild(tempInput);
-  }
-
-  /* ================= 10. CONTACT FORM CHIPS & MAILTO ================= */
-  let selectedChip = 'LLM Fine-Tuning & GenAI';
-  const chips = document.querySelectorAll('.chip');
-  
-  const defaultChip = document.querySelector('.chip[data-chip="LLM Fine-Tuning & GenAI"]');
-  defaultChip?.classList.add('active');
-
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      chips.forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      selectedChip = chip.dataset.chip || '';
-    });
-  });
-
-  const briefForm = document.getElementById('briefForm');
-  briefForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('fName')?.value?.trim() || '';
-    const email = document.getElementById('fEmail')?.value?.trim() || '';
-    const details = document.getElementById('fDetails')?.value?.trim() || '';
-
-    const subject = `Inquiry from ${name} [${selectedChip || 'AI Engineering'}]`;
-    const body = `Hi Qosain,\n\nName: ${name}\nEmail: ${email}\nDomain / Topic: ${selectedChip}\n\nMessage & Scope:\n${details}\n\nBest regards,\n${name}`;
-
-    const mailtoUrl = `mailto:bukhariqosain824@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoUrl;
-    showToast('Opening your email client...');
-  });
-
-});
+})();

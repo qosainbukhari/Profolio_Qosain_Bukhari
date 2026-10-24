@@ -1,766 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Qosain Bukhari — AI & Machine Learning Engineer | GenAI · LLMs · CV · MLOps</title>
-  <meta name="description" content="Qosain Bukhari — AI & Machine Learning Engineer specializing in Generative AI, LLM Fine-Tuning (LoRA/QLoRA), Quantization, Computer Vision, and Production MLOps pipelines.">
-  <meta property="og:title" content="Qosain Bukhari — AI & Machine Learning Engineer">
-  <meta property="og:description" content="GenAI/LLMs · Fine-Tuning (LoRA/QLoRA) · Quantization · Computer Vision · MLOps — from research to production.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230B0E11%22/><rect x=%2228%22 y=%2228%22 width=%2244%22 height=%2244%22 fill=%22%23F2A93B%22 rx=%224%22/></svg>">
-  <link rel="stylesheet" href="style.css">
-  <!-- Framer Motion Engine -->
-  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qosain Bukhari — Machine Learning Engineer</title>
+<meta name="description" content="Qosain Bukhari, junior machine learning engineer from Azad Kashmir, Pakistan. Computer vision, RAG and MLOps projects with real results.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ============ NAVIGATION ============ -->
-<nav class="nav" id="mainNav">
-  <div class="wrap">
-    <a href="#top" class="nav-logo">QOSAIN<span class="dot">.</span>BUKHARI</a>
-    
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+<a class="skip" href="#work">Skip to projects</a>
 
-    <div class="nav-backdrop" id="navBackdrop"></div>
+<header class="pad-top">
+  <span class="pad-title">Engineering computation pad</span>
+  <nav aria-label="Sections">
+    <a href="#work">Projects</a>
+    <a href="#toolkit">Toolkit</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#systems" class="nav-link">Projects</a></li>
-      <li><a href="#capabilities" class="nav-link">Skills & Stack</a></li>
-      <li><a href="#architecture" class="nav-link">Architecture Lab</a></li>
-      <li><a href="#about" class="nav-link">About & Exp</a></li>
-      <li><a href="Resume.pdf" target="_blank" class="nav-link nav-resume-link">Resume ↗</a></li>
-      <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-    </ul>
+<main>
+
+<!-- ============ SHEET 1: HERO ============ -->
+<section class="sheet hero" aria-labelledby="name">
+  <div class="hero-text">
+    <h1 id="name">Qosain<br>Bukhari</h1>
+    <p class="role">Machine learning engineer</p>
+    <p class="lede">I train models and ship them: data checks, honest evaluation, an API, Docker and CI around it. Computer vision, RAG and MLOps, from Azad Kashmir, Pakistan.</p>
+    <p class="status"><span class="dot" aria-hidden="true"></span>Open to junior ML engineer roles and internships, remote or on-site.</p>
+    <div class="actions">
+      <a class="btn ink" href="#work">See the projects</a>
+      <a class="btn" href="mailto:bukhariqosain824@gmail.com">Email me</a>
+      <a class="btn" href="Resume.pdf">Resume (PDF)</a>
+    </div>
   </div>
-</nav>
 
-<main id="top">
+  <figure class="hero-plot">
+    <svg id="trainingPlot" viewBox="0 0 640 440" role="img" aria-labelledby="tp-title tp-desc">
+      <title id="tp-title">YOLOv12 training curve</title>
+      <desc id="tp-desc">Validation mAP at IoU 0.5 rises from 0.06 at epoch 1 to 0.91 at epoch 40 while training the accident detection model.</desc>
+    </svg>
+    <figcaption>Fig. 1 — Validation mAP@50 while training my accident detector, epoch by epoch. Real numbers from <code>results.csv</code>.</figcaption>
+  </figure>
 
-  <!-- ============ HERO SECTION ============ -->
-  <header class="hero section-with-curve">
-    <!-- Floating Curved Amber Background Accent -->
-    <div class="hero-curve-bg" aria-hidden="true">
-      <div class="curve-shape-hero"></div>
-      <div class="curve-glow-hero"></div>
+  <table class="title-block" aria-label="Sheet details">
+    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>1 of 5</td></tr>
+    <tr><th>Subject</th><td colspan="3">Who I am</td></tr>
+  </table>
+</section>
+
+<!-- ============ SHEET 2: PROJECTS ============ -->
+<section class="sheet" id="work" aria-labelledby="work-h">
+  <div class="sheet-head">
+    <h2 id="work-h">Projects</h2>
+    <p class="sheet-note">Six systems, each with the number I'd defend in an interview. Every result comes from the repo it links to.</p>
+  </div>
+
+  <!-- Hotel -->
+  <article class="project feature">
+    <div class="p-body">
+      <h3>Cancellation Radar</h3>
+      <p class="p-sub">Hotel booking cancellation prediction · <a href="https://cancellation-radar.vercel.app">live demo</a></p>
+      <p>Hotels lose 37% of bookings to cancellations. This service scores each booking the moment it's made, explains the score with SHAP, and flags only the bookings worth a reminder call.</p>
+      <p>The hard part was honesty. Six columns are only filled in at check-in, so I dropped them (and proved two of them leak from the data). I tested on the newest 20% of bookings, not a random split. ROC-AUC fell from 0.954 to about 0.82 — the lower number is the real one.</p>
+      <ul class="stack"><li>XGBoost</li><li>Optuna</li><li>SHAP</li><li>MLflow Registry</li><li>DVC</li><li>Evidently</li><li>FastAPI</li><li>Docker</li><li>Vercel</li></ul>
+      <p class="links"><a href="https://cancellation-radar.vercel.app">Open the live demo</a><a href="https://github.com/QosainBukhari/Hotel_Booking_cancellation_Prediction">Code on GitHub</a></p>
     </div>
+    <figure class="p-plot">
+      <svg class="bars" data-unit="€" data-max="45" data-label="Cost of mistakes per booking (€)" data-bars='[["No model",40.86,"muted"],["Logistic regression",10.87],["Random forest",9.65],["XGBoost (live)",9.69,"pen"]]' role="img" aria-label="Cost of mistakes per booking: no model 40.86 euro, logistic regression 10.87, random forest 9.65, XGBoost 9.69."></svg>
+      <figcaption>Fig. 2 — Expected cost of wrong decisions on 23,878 unseen bookings. <span class="note">−76% vs. doing nothing</span></figcaption>
+    </figure>
+  </article>
 
-    <div class="wrap">
-      <div class="hero-kicker reveal">
-        <span class="dot"></span> QOSAIN BUKHARI · AI & MACHINE LEARNING ENGINEER
-      </div>
-
-      <div class="hero-frame reveal">
-        <span class="tag">STATUS: AVAILABLE</span>
-        <h1>I build and deploy AI systems that <span class="amber">make it to production.</span></h1>
-      </div>
-
-      <p class="hero-sub reveal">
-        Specializing in <strong>Generative AI & LLMs</strong> (Fine-Tuning, LoRA/QLoRA, Quantization, RAG), 
-        <strong>Computer Vision</strong>, and <strong>MLOps</strong> — from data curation and model optimization to tested, containerized API services.
-      </p>
-
-      <div class="hero-meta reveal">
-        <div class="hero-meta-item">
-          <div class="k">Specialization</div>
-          <div class="v">GenAI · Fine-Tuning · CV · MLOps</div>
-        </div>
-        <div class="hero-meta-item">
-          <div class="k">Core Toolkit</div>
-          <div class="v">PyTorch · HuggingFace · FastAPI · Docker</div>
-        </div>
-        <div class="hero-meta-item">
-          <div class="k">Availability</div>
-          <div class="v status">Open to AI/ML Roles & Clients</div>
-        </div>
-        <div class="hero-meta-item">
-          <div class="k">Location</div>
-          <div class="v">AJK, Pakistan · Remote Worldwide</div>
-        </div>
-      </div>
-
-      <div class="hero-ctas reveal">
-        <a href="#systems" class="btn btn-primary">Explore Projects</a>
-        <a href="Resume.pdf" target="_blank" class="btn btn-ghost">View Resume ↗</a>
-        <a href="#contact" class="btn btn-ghost">Contact Me</a>
-      </div>
+  <!-- Accident -->
+  <article class="project">
+    <div class="p-body">
+      <h3>Accident detection &amp; emergency response</h3>
+      <p class="p-sub">Final year project</p>
+      <p>A custom YOLOv12 model finds fire, moderate and severe accidents in uploaded images and video. A FastAPI backend stores incidents, a React dashboard shows them, and alerts go out by email or WhatsApp.</p>
+      <p>Tested on 1,800 held-out images: 89.9% mAP@50. Fire is the weak class — smoke has no clean edges — so that's where more data goes next.</p>
+      <ul class="stack"><li>YOLOv12</li><li>PyTorch</li><li>OpenCV</li><li>FastAPI</li><li>MySQL + Alembic</li><li>JWT auth</li><li>React</li><li>Docker Compose</li><li>pytest</li></ul>
+      <p class="links"><a href="https://github.com/QosainBukhari/Accident_detection_system_Yolov12">Code on GitHub</a></p>
     </div>
-  </header>
+    <figure class="p-plot">
+      <svg class="bars" data-unit="%" data-max="100" data-label="Test mAP@50 by class (%)" data-bars='[["Fire",72.9,"pen"],["Moderate",97.3],["Severe",99.4],["All classes",89.9,"bold"]]' role="img" aria-label="Test mAP at 50 by class: fire 72.9 percent, moderate 97.3, severe 99.4, all classes 89.9."></svg>
+      <figcaption>Fig. 3 — Per-class results on the test set.</figcaption>
+    </figure>
+  </article>
 
-  <!-- ============ CREDIBILITY STRIP ============ -->
-  <section class="strip" aria-label="Key highlights">
-    <div class="wrap strip-grid">
-      <div class="strip-item reveal">
-        <div class="strip-num">1<span class="amber">+</span></div>
-        <div class="strip-label">Year Freelance & Production ML</div>
-      </div>
-      <div class="strip-item reveal">
-        <div class="strip-num">8<span class="amber">+</span></div>
-        <div class="strip-label">End-to-End AI/ML Deployments</div>
-      </div>
-      <div class="strip-item reveal">
-        <div class="strip-num"><span class="amber">88.6</span>%</div>
-        <div class="strip-label">YOLOv12 CV Detection mAP@50</div>
-      </div>
-      <div class="strip-item reveal">
-        <div class="strip-num"><span class="amber">90</span>%</div>
-        <div class="strip-label">RAG Answer Faithfulness</div>
-      </div>
+  <!-- RAG -->
+  <article class="project">
+    <div class="p-body">
+      <h3>Document Q&amp;A chatbot</h3>
+      <p class="p-sub">Retrieval-augmented generation</p>
+      <p>Upload PDFs, ask questions, get answers that cite the page they came from. Text is chunked, embedded with MiniLM, stored in ChromaDB and answered by Llama 3.1 through Groq, with conversation memory.</p>
+      <p>I checked it by hand on 20 question–answer pairs across several documents.</p>
+      <ul class="stack"><li>LangChain</li><li>ChromaDB</li><li>Sentence-Transformers</li><li>Llama 3.1 (Groq)</li><li>FastAPI</li><li>Streamlit</li><li>GitHub Actions</li></ul>
+      <p class="links"><a href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot">Code on GitHub</a></p>
     </div>
-  </section>
+    <figure class="p-plot">
+      <svg class="bars" data-unit="%" data-max="100" data-label="Manual check on 20 questions (%)" data-bars='[["Right passage retrieved",85],["Answer faithful to source",90,"bold"]]' role="img" aria-label="Manual evaluation on 20 questions: right passage retrieved 85 percent, answer faithful to source 90 percent."></svg>
+      <figcaption>Fig. 4 — Small sample, so read it as a sanity check, not a benchmark.</figcaption>
+    </figure>
+  </article>
 
-  <!-- ============ SELECTED SYSTEMS & PROJECTS ============ -->
-  <section id="systems">
-    <div class="wrap">
-      <div class="head reveal">
-        <div class="eyebrow">Production Portfolio</div>
-        <h2>Selected Systems & Projects</h2>
-        <p>End-to-end architectures built from raw datasets and custom modeling to containerized, validated endpoints.</p>
-      </div>
-
-      <!-- Category Filter Pills -->
-      <div class="project-filters reveal" id="projectFilters" role="tablist" aria-label="Filter projects by domain">
-        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Systems (<span id="count-all">5</span>)</button>
-        <button class="filter-btn" data-filter="genai" role="tab" aria-selected="false">GenAI & LLMs (<span id="count-genai">1</span>)</button>
-        <button class="filter-btn" data-filter="cv" role="tab" aria-selected="false">Computer Vision (<span id="count-cv">2</span>)</button>
-        <button class="filter-btn" data-filter="mlops" role="tab" aria-selected="false">MLOps & BI (<span id="count-mlops">2</span>)</button>
-      </div>
-
-      <div class="projects-list" id="projectsList">
-
-        <!-- 01: Document Q&A RAG Chatbot (GenAI) -->
-        <article class="sys-card reveal" data-category="genai">
-          <div class="sys-top" data-toggle tabindex="0" role="button" aria-expanded="false">
-            <div class="sys-num">01</div>
-            <div class="sys-main">
-              <div class="sys-title">Document Q&A RAG Chatbot</div>
-              <div class="sys-tag">Generative AI + Agentic RAG · 2026</div>
-            </div>
-            <div class="sys-metric">
-              <div class="v">90%</div>
-              <div class="l">Faithfulness</div>
-            </div>
-            <div class="sys-plus">+</div>
-          </div>
-          <div class="sys-body">
-            <div class="sys-inner">
-              <div class="sys-desc">
-                <div class="cs">
-                  <h4>The Problem</h4>
-                  <p>Enable users to query dense proprietary PDF documentation in natural language and receive strictly grounded answers with verifiable page citations, eliminating LLM hallucinations.</p>
-                </div>
-                <div class="cs">
-                  <h4>The Engineering</h4>
-                  <p>Constructed an asynchronous retrieval-augmented generation engine using <strong>LangChain</strong>, <strong>Sentence Transformers</strong>, and a persistent <strong>ChromaDB</strong> vector database. Orchestrated with <strong>Llama 3 via Groq</strong> for rapid multi-turn chat. Backed by a <strong>FastAPI</strong> microservice and Streamlit UI, wrapped with GitHub Actions CI/CD and a 6-stage Pytest test suite.</p>
-                </div>
-                <div class="cs">
-                  <h4>Results</h4>
-                  <p>85% retrieval recall and 90% answer faithfulness across 20 curated domain evaluation benchmarks.</p>
-                </div>
-                <div class="pills">
-                  <span class="pill">Python</span>
-                  <span class="pill">LangChain</span>
-                  <span class="pill">ChromaDB</span>
-                  <span class="pill">Llama 3</span>
-                  <span class="pill">Groq API</span>
-                  <span class="pill">Sentence Transformers</span>
-                  <span class="pill">FastAPI</span>
-                  <span class="pill">Streamlit</span>
-                  <span class="pill">Docker</span>
-                  <span class="pill">GitHub Actions</span>
-                  <span class="pill">Pytest</span>
-                </div>
-                <div class="card-actions">
-                  <a href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot" target="_blank" rel="noopener" class="repo-link">↗ View Repository</a>
-                </div>
-              </div>
-              <div class="sys-pipeline">
-                <div class="cs"><h4>Retrieval & Synthesis Flow</h4></div>
-                <div class="arch">
-                  <div class="row">INPUT PDF DOCUMENTS</div><div class="row arrow">↓</div>
-                  <div class="row">RECURSIVE CHUNKING + OVERLAP</div><div class="row arrow">↓</div>
-                  <div class="row">DENSE VECTOR EMBEDDINGS</div><div class="row arrow">↓</div>
-                  <div class="row">CHROMADB SIMILARITY SEARCH</div><div class="row arrow">↓</div>
-                  <div class="row">PROMPT CONTEXT AUGMENTATION</div><div class="row arrow">↓</div>
-                  <div class="row">LLAMA 3 (GROQ) GENERATION</div><div class="row arrow">↓</div>
-                  <div class="row">GROUNDED ANSWER + CITATIONS</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 02: Accident Detection System (Computer Vision) -->
-        <article class="sys-card reveal" data-category="cv">
-          <div class="sys-top" data-toggle tabindex="0" role="button" aria-expanded="false">
-            <div class="sys-num">02</div>
-            <div class="sys-main">
-              <div class="sys-title">Real-Time Accident Detection System</div>
-              <div class="sys-tag">Computer Vision + YOLOv12 · Final Year Project · 2025–2026</div>
-            </div>
-            <div class="sys-metric">
-              <div class="v">88.6%</div>
-              <div class="l">mAP@50</div>
-            </div>
-            <div class="sys-plus">+</div>
-          </div>
-          <div class="sys-body">
-            <div class="sys-inner">
-              <div class="sys-desc">
-                <div class="cs">
-                  <h4>The Problem</h4>
-                  <p>Detect vehicular collisions in real time across visual feeds without manual human monitoring, triggering instantaneous emergency notifications.</p>
-                </div>
-                <div class="cs">
-                  <h4>The Engineering</h4>
-                  <p>Trained a custom state-of-the-art <strong>YOLOv12</strong> detection model integrated into a low-latency frame processor. Paired with a production-grade <strong>FastAPI</strong> backend, JWT auth, SQLAlchemy ORM, Alembic migrations, real-time live monitoring dashboard, automated SMTP email dispatcher, Swagger documentation, and containerized Docker setup.</p>
-                </div>
-                <div class="cs">
-                  <h4>Performance Metrics</h4>
-                  <p>Achieved <strong>88.6% mAP@50</strong>, 87% precision, and 84% recall on held-out edge validation sets.</p>
-                </div>
-                <div class="pills">
-                  <span class="pill">Python</span>
-                  <span class="pill">YOLOv12</span>
-                  <span class="pill">OpenCV</span>
-                  <span class="pill">FastAPI</span>
-                  <span class="pill">SQLAlchemy</span>
-                  <span class="pill">Alembic</span>
-                  <span class="pill">JWT Auth</span>
-                  <span class="pill">Docker</span>
-                  <span class="pill">SMTP Alerts</span>
-                  <span class="pill">Pytest</span>
-                </div>
-                <div class="card-actions">
-                  <a href="https://github.com/qosainbukhari/Accident_detection_system_Yolov12" target="_blank" rel="noopener" class="repo-link">↗ View Repository</a>
-                </div>
-              </div>
-              <div class="sys-pipeline">
-                <div class="cs"><h4>Detection Pipeline</h4></div>
-                <div class="arch">
-                  <div class="row">CCTV / VIDEO STREAM</div><div class="row arrow">↓</div>
-                  <div class="row">YOLOv12 INFERENCE ENGINE</div><div class="row arrow">↓</div>
-                  <div class="row">THRESHOLD & BOUNDING BOX TRACKING</div><div class="row arrow">↓</div>
-                  <div class="row">FASTAPI ASYNC EVENT QUEUE</div><div class="row arrow">↓</div>
-                  <div class="row">PERSISTENT DB LOGGING</div><div class="row arrow">↓</div>
-                  <div class="row">SMTP EMERGENCY DISPATCH</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 03: CT-Scan Image Classification (Computer Vision) -->
-        <article class="sys-card reveal" data-category="cv">
-          <div class="sys-top" data-toggle tabindex="0" role="button" aria-expanded="false">
-            <div class="sys-num">03</div>
-            <div class="sys-main">
-              <div class="sys-title">Chest CT-Scan Classification & Explainability</div>
-              <div class="sys-tag">Deep Learning + Grad-CAM + MLOps · 2025</div>
-            </div>
-            <div class="sys-metric">
-              <div class="v">Grad-CAM</div>
-              <div class="l">Explainability</div>
-            </div>
-            <div class="sys-plus">+</div>
-          </div>
-          <div class="sys-body">
-            <div class="sys-inner">
-              <div class="sys-desc">
-                <div class="cs">
-                  <h4>The Problem</h4>
-                  <p>Classify chest abnormalities from medical CT scans with visual explainability so predictions are interpretable rather than operating as black-box outputs.</p>
-                </div>
-                <div class="cs">
-                  <h4>The Engineering</h4>
-                  <p>Fine-tuned a deep convolutional backbone using transfer learning with custom classification heads. Integrated <strong>Grad-CAM</strong> to render visual gradient-weighted class activation heatmaps showing region attention. Implemented early stopping, checkpointing, MLflow experiment tracking, and served via a Dockerized FastAPI service.</p>
-                </div>
-                <div class="pills">
-                  <span class="pill">Python</span>
-                  <span class="pill">PyTorch</span>
-                  <span class="pill">CNN Backbones</span>
-                  <span class="pill">Grad-CAM</span>
-                  <span class="pill">Transfer Learning</span>
-                  <span class="pill">MLflow</span>
-                  <span class="pill">FastAPI</span>
-                  <span class="pill">Docker</span>
-                </div>
-                <div class="card-actions">
-                  <a href="https://github.com/QosainBukhari/Chest_CT_Scan_Classification_End_to_end_Project_MLOPS" target="_blank" rel="noopener" class="repo-link">↗ View Repository</a>
-                </div>
-              </div>
-              <div class="sys-pipeline">
-                <div class="cs"><h4>Interpretability Flow</h4></div>
-                <div class="arch">
-                  <div class="row">MEDICAL CT-SCAN IMAGE</div><div class="row arrow">↓</div>
-                  <div class="row">PREPROCESSING & NORMALIZATION</div><div class="row arrow">↓</div>
-                  <div class="row">CNN FEATURE EXTRACTION</div><div class="row arrow">↓</div>
-                  <div class="row">LOGITS & PREDICTION OUTPUT</div><div class="row arrow">↓</div>
-                  <div class="row">GRAD-CAM GRADIENT BACKPROP</div><div class="row arrow">↓</div>
-                  <div class="row">ATTENTION HEATMAP OVERLAY</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 04: Fake News Detection & MLOps Pipeline (MLOps & NLP) -->
-        <article class="sys-card reveal" data-category="mlops">
-          <div class="sys-top" data-toggle tabindex="0" role="button" aria-expanded="false">
-            <div class="sys-num">04</div>
-            <div class="sys-main">
-              <div class="sys-title">Fake News Detection & MLOps Pipeline</div>
-              <div class="sys-tag">End-to-End NLP · MLflow · DVC · CI/CD · 2026</div>
-            </div>
-            <div class="sys-metric">
-              <div class="v">94%+</div>
-              <div class="l">Accuracy</div>
-            </div>
-            <div class="sys-plus">+</div>
-          </div>
-          <div class="sys-body">
-            <div class="sys-inner">
-              <div class="sys-desc">
-                <div class="cs">
-                  <h4>The Problem</h4>
-                  <p>Reliably categorize news articles as genuine or fabricated while maintaining complete data and model reproducibility across training iterations.</p>
-                </div>
-                <div class="cs">
-                  <h4>The Engineering</h4>
-                  <p>Built a robust modular text pipeline with TF-IDF vectorization and ensemble modeling. Managed dataset versioning with <strong>DVC</strong> and tracked experiment runs with <strong>MLflow</strong>. Deployed a clean FastAPI service packaged with Docker for single-command deployment.</p>
-                </div>
-                <div class="cs">
-                  <h4>Results</h4>
-                  <p>94%+ classification accuracy across 40,000+ benchmark articles.</p>
-                </div>
-                <div class="pills">
-                  <span class="pill">Python</span>
-                  <span class="pill">NLP / TF-IDF</span>
-                  <span class="pill">Scikit-learn</span>
-                  <span class="pill">MLflow</span>
-                  <span class="pill">DVC</span>
-                  <span class="pill">FastAPI</span>
-                  <span class="pill">Docker Hub</span>
-                </div>
-                <div class="card-actions">
-                  <a href="https://github.com/QosainBukhari/Fake_News_Detection_End_to_End_MLOPS" target="_blank" rel="noopener" class="repo-link">↗ View Repository</a>
-                </div>
-              </div>
-              <div class="sys-pipeline">
-                <div class="cs"><h4>MLOps Lifecycle</h4></div>
-                <div class="arch">
-                  <div class="row">RAW CORPUS (DVC VERSIONED)</div><div class="row arrow">↓</div>
-                  <div class="row">TOKENIZATION & TF-IDF VECTORIZER</div><div class="row arrow">↓</div>
-                  <div class="row">TRAIN / EVAL (MLFLOW TRACKED)</div><div class="row arrow">↓</div>
-                  <div class="row">SERIALIZED MODEL ARTIFACT</div><div class="row arrow">↓</div>
-                  <div class="row">FASTAPI REST INFERENCE ENDPOINT</div><div class="row arrow">↓</div>
-                  <div class="row">DOCKER CONTAINERIZED RELEASE</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 05: CommerceIQ Analytics Platform (MLOps & Full-Stack) -->
-        <article class="sys-card reveal" data-category="mlops">
-          <div class="sys-top" data-toggle tabindex="0" role="button" aria-expanded="false">
-            <div class="sys-num">05</div>
-            <div class="sys-main">
-              <div class="sys-title">CommerceIQ Full-Stack Analytics Platform</div>
-              <div class="sys-tag">FastAPI · React · Tailwind · MySQL · Pandas ETL · 2025</div>
-            </div>
-            <div class="sys-metric">
-              <div class="v">11</div>
-              <div class="l">Endpoints</div>
-            </div>
-            <div class="sys-plus">+</div>
-          </div>
-          <div class="sys-body">
-            <div class="sys-inner">
-              <div class="sys-desc">
-                <div class="cs">
-                  <h4>The Problem</h4>
-                  <p>Transform messy multi-table transactional data into high-performance business intelligence endpoints and real-time visualization dashboards.</p>
-                </div>
-                <div class="cs">
-                  <h4>The Engineering</h4>
-                  <p>Cleaned and structured Brazilian e-commerce records via a Pandas ETL pipeline into a normalized MySQL schema. Built a modular FastAPI backend with 11 analytics endpoints using SQLAlchemy ORM. Built an interactive React + Tailwind frontend with KPI metrics, Recharts charts, and Docker Compose orchestration.</p>
-                </div>
-                <div class="pills">
-                  <span class="pill">Python</span>
-                  <span class="pill">FastAPI</span>
-                  <span class="pill">SQLAlchemy</span>
-                  <span class="pill">Pandas</span>
-                  <span class="pill">MySQL</span>
-                  <span class="pill">React</span>
-                  <span class="pill">Tailwind CSS</span>
-                  <span class="pill">Recharts</span>
-                  <span class="pill">Docker Compose</span>
-                </div>
-                <div class="card-actions">
-                  <a href="https://github.com/QosainBukhari/CommerceIQ_Analytics_Platform" target="_blank" rel="noopener" class="repo-link">↗ View Repository</a>
-                </div>
-              </div>
-              <div class="sys-pipeline">
-                <div class="cs"><h4>Full-Stack Data Flow</h4></div>
-                <div class="arch">
-                  <div class="row">OLIST TRANSACTION DATASET</div><div class="row arrow">↓</div>
-                  <div class="row">PANDAS ETL & CLEANING LAYER</div><div class="row arrow">↓</div>
-                  <div class="row">NORMALIZED MYSQL DATABASE</div><div class="row arrow">↓</div>
-                  <div class="row">FASTAPI ANALYTICS ROUTERS (11 EPS)</div><div class="row arrow">↓</div>
-                  <div class="row">REACT + TAILWIND + RECHARTS UI</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
-
-      </div>
+  <!-- CommerceIQ -->
+  <article class="project">
+    <div class="p-body">
+      <h3>CommerceIQ</h3>
+      <p class="p-sub">E-commerce analytics platform</p>
+      <p>About 100,000 real orders from the Olist dataset, cleaned with Pandas into a MySQL schema, queried with hand-written SQL, served by 11 FastAPI endpoints and drawn in a React dashboard: revenue, growth, products, sellers, payments and geography.</p>
+      <ul class="stack"><li>Pandas ETL</li><li>MySQL</li><li>SQL</li><li>FastAPI</li><li>React</li><li>Tailwind</li><li>Recharts</li><li>Docker</li></ul>
+      <p class="links"><a href="https://github.com/QosainBukhari/CommerceIQ_Analytics_Platform">Code on GitHub</a></p>
     </div>
-  </section>
+    <figure class="p-plot photo">
+      <img src="assets/commerceiq.jpg" alt="CommerceIQ dashboard with revenue KPIs and charts" loading="lazy" width="1100" height="1050">
+      <figcaption>Fig. 5 — The dashboard.</figcaption>
+    </figure>
+  </article>
 
-  <!-- ============ CAPABILITIES & SKILLS ============ -->
-  <section id="capabilities">
-    <div class="wrap">
-      <div class="head reveal">
-        <div class="eyebrow">Technical Capability</div>
-        <h2>Engineering Skills & Stack</h2>
-        <p>Tools, frameworks, and domain competencies I actively apply to build reliable AI systems.</p>
-      </div>
-
-      <div class="cap-grid reveal">
-
-        <!-- 1: GenAI & LLM Fine-Tuning (Highlighted) -->
-        <div class="cap-cell cap-highlight">
-          <div class="cap-badge">Core Focus</div>
-          <h4>GenAI & LLM Fine-Tuning</h4>
-          <ul>
-            <li><strong>Fine-Tuning:</strong> LoRA, QLoRA, PEFT, SFT, DPO</li>
-            <li><strong>Quantization:</strong> BitsAndBytes (4/8-bit), GGUF, AWQ</li>
-            <li><strong>Hugging Face:</strong> Transformers, TRL, Accelerate, Datasets</li>
-            <li><strong>Serving & Inference:</strong> vLLM, Ollama, Groq, HF Endpoints</li>
-            <li><strong>Prompt Optimization:</strong> System Framing, Few-Shot, Reasoning</li>
-          </ul>
-        </div>
-
-        <!-- 2: RAG & Agentic Systems -->
-        <div class="cap-cell">
-          <h4>RAG & Vector Search</h4>
-          <ul>
-            <li><strong>Frameworks:</strong> LangChain, LlamaIndex</li>
-            <li><strong>Vector Databases:</strong> ChromaDB, FAISS, Pinecone</li>
-            <li><strong>Embeddings:</strong> Sentence Transformers, BGE</li>
-            <li><strong>Techniques:</strong> Hybrid Search, Context Chunking, Re-ranking</li>
-            <li><strong>Evaluation:</strong> RAG Faithfulness, Answer Relevance</li>
-          </ul>
-        </div>
-
-        <!-- 3: Deep Learning & Computer Vision -->
-        <div class="cap-cell">
-          <h4>Computer Vision & DL</h4>
-          <ul>
-            <li><strong>Frameworks:</strong> PyTorch, TensorFlow</li>
-            <li><strong>Object Detection:</strong> YOLOv11, YOLOv12</li>
-            <li><strong>Vision Tools:</strong> OpenCV, PIL, Albumentations</li>
-            <li><strong>Architectures:</strong> CNNs, ResNet, Vision Transformers</li>
-            <li><strong>Explainability:</strong> Grad-CAM Attention Maps</li>
-          </ul>
-        </div>
-
-        <!-- 4: Traditional ML & NLP -->
-        <div class="cap-cell">
-          <h4>Machine Learning & NLP</h4>
-          <ul>
-            <li><strong>Libraries:</strong> Scikit-learn, XGBoost, LightGBM</li>
-            <li><strong>NLP:</strong> NLTK, Spacy, TF-IDF, Regex</li>
-            <li><strong>Modeling:</strong> Random Forest, SVM, Ensembles</li>
-            <li><strong>Pipeline:</strong> Feature Engineering, Hyperparameter Tuning</li>
-            <li><strong>Analysis:</strong> EDA, Cross-Validation, Metrics Analysis</li>
-          </ul>
-        </div>
-
-        <!-- 5: MLOps & Deployment -->
-        <div class="cap-cell">
-          <h4>MLOps & Infrastructure</h4>
-          <ul>
-            <li><strong>Containers:</strong> Docker, Docker Compose, Docker Hub</li>
-            <li><strong>Tracking & Versioning:</strong> MLflow, DVC</li>
-            <li><strong>CI/CD:</strong> GitHub Actions automated test workflows</li>
-            <li><strong>Testing:</strong> Pytest automated test suites</li>
-            <li><strong>Environment:</strong> Linux / Bash, Git, Virtualenvs</li>
-          </ul>
-        </div>
-
-        <!-- 6: APIs & Web Systems -->
-        <div class="cap-cell">
-          <h4>APIs, DB & Web</h4>
-          <ul>
-            <li><strong>Backend:</strong> FastAPI, Flask, RESTful APIs, Swagger UI</li>
-            <li><strong>ORM & Auth:</strong> SQLAlchemy, Alembic, JWT Auth</li>
-            <li><strong>Databases:</strong> MySQL, SQLite, PostgreSQL</li>
-            <li><strong>Frontend:</strong> Streamlit, React, Tailwind CSS</li>
-            <li><strong>Data Stack:</strong> Pandas, NumPy, Matplotlib, Seaborn</li>
-          </ul>
-        </div>
-
-      </div>
+  <!-- Fake news -->
+  <article class="project">
+    <div class="p-body">
+      <h3>Fake news detection</h3>
+      <p class="p-sub">NLP with a reproducible pipeline</p>
+      <p>72,134 news articles, cleaned and lemmatised, turned into TF-IDF features and classified as real or fake. DVC runs the pipeline stages, MLflow records every run, FastAPI serves the model.</p>
+      <ul class="stack"><li>scikit-learn</li><li>NLTK</li><li>DVC</li><li>MLflow</li><li>FastAPI</li><li>Docker</li></ul>
+      <p class="links"><a href="https://github.com/QosainBukhari/Fake_News_Detection_End_to_End_MLOPS">Code on GitHub</a></p>
     </div>
-  </section>
+    <figure class="p-plot">
+      <svg class="bars" data-unit="%" data-min="92" data-max="96.5" data-label="F1 score on the test split (%) — axis starts at 92%" data-bars='[["Decision tree",93.53],["Gradient boosting",94.45],["Logistic regression",95.07],["Random forest",95.80,"bold"]]' role="img" aria-label="F1 score by model: decision tree 93.53 percent, gradient boosting 94.45, logistic regression 95.07, random forest 95.80."></svg>
+      <figcaption>Fig. 6 — Four models compared. Note the axis starts at 92%.</figcaption>
+    </figure>
+  </article>
 
-  <!-- ============ ARCHITECTURE LAB ============ -->
-  <section id="architecture">
-    <div class="wrap">
-      <div class="head reveal">
-        <div class="eyebrow">Interactive Pipeline Visualizer</div>
-        <h2>Architecture Lab</h2>
-        <p>Explore how different AI pipelines are structured from data ingress to deployed inference.</p>
-      </div>
-
-      <div class="lab-tabs reveal" id="labTabs" role="tablist">
-        <button class="lab-tab active" data-lab="finetuning" role="tab" aria-selected="true">LLM Fine-Tuning & Quantization</button>
-        <button class="lab-tab" data-lab="rag" role="tab" aria-selected="false">Agentic RAG</button>
-        <button class="lab-tab" data-lab="cv" role="tab" aria-selected="false">Computer Vision (YOLOv12)</button>
-        <button class="lab-tab" data-lab="mlops" role="tab" aria-selected="false">MLOps & CI/CD</button>
-        <button class="lab-tab" data-lab="api" role="tab" aria-selected="false">Production ML API</button>
-      </div>
-
-      <div class="lab-container reveal">
-        <div class="lab-meta-bar" id="labMetaBar">
-          <span class="lab-badge" id="labBadge">PIPELINE: LLM FINE-TUNING</span>
-          <span class="lab-description" id="labDesc">QLoRA 4-bit adapter fine-tuning, merging, GGUF quantization, and vLLM serving.</span>
-        </div>
-        <div class="lab-flow" id="labDiagram" aria-live="polite"></div>
-      </div>
+  <!-- Chest CT -->
+  <article class="project">
+    <div class="p-body">
+      <h3>Chest CT classification</h3>
+      <p class="p-sub">Transfer learning with DVC and MLflow</p>
+      <p>VGG16 transfer learning to tell adenocarcinoma from normal CT scans, run as a four-stage DVC pipeline. My first version reported 100% accuracy — too good to be true.</p>
+      <p>The cause: training held out the first 20% of images, evaluation used the first 30%. A third of the "unseen" images had been trained on. One shared split constant fixed it.</p>
+      <ul class="stack"><li>TensorFlow / Keras</li><li>VGG16</li><li>DVC</li><li>MLflow</li><li>Flask</li></ul>
+      <p class="links"><a href="https://github.com/QosainBukhari/Chest_CT_Scan_Classification_End_to_end_Project_MLOPS">Code on GitHub</a></p>
     </div>
-  </section>
+    <figure class="p-plot">
+      <svg id="leakPlot" viewBox="0 0 520 240" role="img" aria-labelledby="lk-t">
+        <title id="lk-t">Training used images from 20 to 100 percent; evaluation used 0 to 30 percent, so 20 to 30 percent overlapped.</title>
+      </svg>
+      <figcaption>Fig. 7 — Where the leak was. Same images, two different splits.</figcaption>
+    </figure>
+  </article>
 
-  <!-- ============ ABOUT & EXPERIENCE (WITH SCROLLING CURVED YELLOW BACKGROUND) ============ -->
-  <section id="about" class="section-with-curve">
-    <!-- Dynamic Curved Half Yellow/Amber Background with Parallax Scroll -->
-    <div class="about-curve-bg" id="aboutCurveBg" aria-hidden="true">
-      <div class="curve-ambient-glow"></div>
-      <div class="curve-half-shape" id="curveHalfShape"></div>
-      <div class="curve-edge-line"></div>
+  <p class="more">Older and smaller projects — churn prediction, phishing detection, wine quality, student performance — are on <a href="https://github.com/QosainBukhari?tab=repositories">my GitHub</a>.</p>
+
+  <table class="title-block" aria-label="Sheet details">
+    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>2 of 5</td></tr>
+    <tr><th>Subject</th><td colspan="3">Projects</td></tr>
+  </table>
+</section>
+
+<!-- ============ SHEET 3: TOOLKIT ============ -->
+<section class="sheet" id="toolkit" aria-labelledby="toolkit-h">
+  <div class="sheet-head">
+    <h2 id="toolkit-h">Toolkit</h2>
+    <p class="sheet-note">Grouped by where it sits in a project, from raw data to a running service.</p>
+  </div>
+
+  <ol class="flow">
+    <li><h3>Data</h3><p>Python, SQL, Pandas, NumPy, MySQL, MongoDB, Pandera, web scraping with BeautifulSoup</p></li>
+    <li><h3>Modelling</h3><p>scikit-learn, XGBoost, Optuna, PyTorch, TensorFlow/Keras, OpenCV, YOLO (Ultralytics), NLTK</p></li>
+    <li><h3>LLM apps</h3><p>LangChain, ChromaDB, Sentence-Transformers, Groq, Ollama</p></li>
+    <li><h3>Checking</h3><p>Leakage analysis, time-based splits, SHAP, Evidently drift reports, pytest</p></li>
+    <li><h3>Shipping</h3><p>FastAPI, Flask, Streamlit, Docker, DVC, MLflow, GitHub Actions, Vercel</p></li>
+  </ol>
+  <p class="pencil">learning now: LangGraph &amp; agentic RAG, evaluating LLM apps properly</p>
+
+  <table class="title-block" aria-label="Sheet details">
+    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>3 of 5</td></tr>
+    <tr><th>Subject</th><td colspan="3">Toolkit</td></tr>
+  </table>
+</section>
+
+<!-- ============ SHEET 4: ABOUT ============ -->
+<section class="sheet about" id="about" aria-labelledby="about-h">
+  <div class="sheet-head">
+    <h2 id="about-h">About</h2>
+  </div>
+  <div class="about-grid">
+    <figure class="taped">
+      <img src="assets/qosain.jpg" alt="Qosain Bukhari smiling on a bridge in Kashmir" width="480" height="480" loading="lazy">
+      <figcaption>Kashmir, where I live and work.</figcaption>
+    </figure>
+    <div class="about-text">
+      <p>I'm a Software Engineering graduate from Mirpur University of Science &amp; Technology. I like the part of machine learning that happens after the notebook: making sure the number is real, then making the model usable by someone else.</p>
+      <p>I work on modest hardware, so I lean on free tools — Kaggle and Colab GPUs, open-source models, free-tier hosting — and on keeping things small enough to run.</p>
+
+      <h3>Timeline</h3>
+      <ol class="timeline">
+        <li><span class="when">2025 – now</span><span class="what">Freelance ML engineer — models, RAG chatbots and computer-vision pipelines for direct clients</span></li>
+        <li><span class="when">Jul – Oct 2025</span><span class="what">Machine learning intern, Pixels Inn Institute, Mirpur</span></li>
+        <li><span class="when">2022 – 2026</span><span class="what">BS Software Engineering, MUST — CGPA 3.40 / 4.0. Final year project: accident detection with YOLOv12</span></li>
+      </ol>
     </div>
+  </div>
 
-    <div class="wrap">
-      <div class="head reveal">
-        <div class="eyebrow">Background & Experience</div>
-        <h2>Engineering Background</h2>
-      </div>
+  <table class="title-block" aria-label="Sheet details">
+    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>4 of 5</td></tr>
+    <tr><th>Subject</th><td colspan="3">About</td></tr>
+  </table>
+</section>
 
-      <div class="about-grid reveal">
-        <div class="about-sidebar">
-          <div class="about-photo">
-            <img src="Photo.jpeg" alt="Portrait of Qosain Bukhari"
-                 onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';">
-            <div class="avatar-fallback" id="avatarFallback">
-              <span>QB</span>
-              <small>Qosain Bukhari</small>
-            </div>
-          </div>
-          <div class="about-quick">
-            <div class="quick-item">
-              <span class="label">Status</span>
-              <span class="val highlight">Open to Opportunities</span>
-            </div>
-            <div class="quick-item">
-              <span class="label">Degree</span>
-              <span class="val">BS Software Engineering (2022–2026)</span>
-            </div>
-            <div class="quick-item">
-              <span class="label">Location</span>
-              <span class="val">AJK, Pakistan (Remote ready)</span>
-            </div>
-          </div>
-        </div>
+<!-- ============ SHEET 5: CONTACT ============ -->
+<section class="sheet contact" id="contact" aria-labelledby="contact-h">
+  <div class="sheet-head">
+    <h2 id="contact-h">Let's talk</h2>
+    <p class="sheet-note">Hiring for a junior ML role, or need a model built? Email is fastest — I reply within a day.</p>
+  </div>
+  <dl class="contacts">
+    <div><dt>Email</dt><dd><a href="mailto:bukhariqosain824@gmail.com">bukhariqosain824@gmail.com</a></dd></div>
+    <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/syedqosainbukhari">linkedin.com/in/syedqosainbukhari</a></dd></div>
+    <div><dt>GitHub</dt><dd><a href="https://github.com/QosainBukhari">github.com/QosainBukhari</a></dd></div>
+    <div><dt>Resume</dt><dd><a href="Resume.pdf">Download PDF</a></dd></div>
+  </dl>
 
-        <div class="about-content">
-          <div class="about-bio">
-            <h3>About Me</h3>
-            <p>I am a Software Engineering graduate from MUST (2026) with extensive freelance and hands-on production experience in <strong>Generative AI, Large Language Models (Fine-Tuning & Quantization), Computer Vision, and MLOps</strong>.</p>
-            <p>I focus on taking models beyond notebooks — developing custom training/fine-tuning scripts (LoRA/QLoRA, PyTorch, Hugging Face), optimizing weights for fast local inference (GGUF, vLLM), and packaging pipelines with robust FastAPI endpoints, automated Pytest testing, and Dockerized CI/CD workflows.</p>
-          </div>
-
-          <div class="exp-block">
-            <h3>Work Experience</h3>
-            <div class="exp-item">
-              <div class="exp-head">
-                <span class="exp-title">Freelance Machine Learning & GenAI Engineer</span>
-                <span class="exp-date">2025 — Present</span>
-              </div>
-              <div class="exp-org">Direct Clients & Independent Projects · Remote</div>
-              <ul class="exp-bullets">
-                <li>Engineered custom ML, GenAI, and computer vision solutions tailored to client specifications.</li>
-                <li>Developed document retrieval RAG chatbots with custom embeddings and vector database backends.</li>
-                <li>Implemented low-latency frame inference pipelines for object and accident detection tasks.</li>
-                <li>Designed clean RESTful FastAPI backends with authentication, ORM database models, and containerization.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="edu-grid">
-            <div class="edu-col">
-              <h3>Education</h3>
-              <div class="edu-entry">
-                <div class="edu-deg">BS Software Engineering</div>
-                <div class="edu-school">Mirpur University of Science & Technology (MUST)</div>
-                <div class="edu-year">2022 — 2026 (Graduated) · CGPA 3.35 / 4.0</div>
-                <div class="edu-note">Final Year Project: Real-Time Accident Detection System (YOLOv12)</div>
-              </div>
-            </div>
-
-            <div class="edu-col">
-              <h3>Certifications</h3>
-              <div class="cert-entry">
-                <div class="cert-name">Complete Data Science, ML, DL & NLP Bootcamp</div>
-                <div class="cert-meta">Udemy — Krish Naik · 2024</div>
-              </div>
-              <div class="cert-entry">
-                <div class="cert-name">Machine Learning Concepts</div>
-                <div class="cert-meta">Microsoft · 2024</div>
-              </div>
-              <div class="cert-entry">
-                <div class="cert-name">Python for Data Science</div>
-                <div class="cert-meta">Coursera · 2023</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ RESUME CALLOUT ============ -->
-  <section id="resume" class="resume-section section-with-curve">
-    <!-- Subtle Curved Accent -->
-    <div class="resume-curve-bg" aria-hidden="true">
-      <div class="curve-shape-resume"></div>
-    </div>
-
-    <div class="wrap">
-      <div class="resume-box reveal">
-        <div class="eyebrow" style="justify-content:center">Curriculum Vitae</div>
-        <h2>Ready for Detailed Review?</h2>
-        <p>Download my comprehensive resume covering technical projects, engineering stack, education, and benchmark metrics.</p>
-        <div class="resume-buttons">
-          <a href="Resume.pdf" target="_blank" class="btn btn-ghost">View Resume ↗</a>
-          <a href="Resume.pdf" download="Qosain_Bukhari_Resume.pdf" class="btn btn-primary">Download PDF ↓</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT SECTION ============ -->
-  <section id="contact">
-    <div class="wrap contact-grid">
-      <div class="contact-info reveal">
-        <div class="eyebrow">Connect</div>
-        <h2>Get in Touch</h2>
-        <p>Interested in collaborating on a GenAI project, discussing an ML engineering role, or building custom pipelines? Send a message or reach out directly.</p>
-        
-        <div class="contact-cards">
-          <div class="contact-card">
-            <span class="contact-icon">✉</span>
-            <div class="contact-detail">
-              <span class="c-label">Email</span>
-              <span class="c-val" id="emailText">bukhariqosain824@gmail.com</span>
-            </div>
-            <button class="copy-btn" id="copyEmailBtn" aria-label="Copy email address" title="Copy email address">
-              <span class="copy-icon">📋</span> Copy
-            </button>
-          </div>
-
-          <a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" class="contact-card interactive">
-            <span class="contact-icon">↗</span>
-            <div class="contact-detail">
-              <span class="c-label">GitHub</span>
-              <span class="c-val">github.com/QosainBukhari</span>
-            </div>
-          </a>
-
-          <a href="https://linkedin.com/in/syedqosainbukhari" target="_blank" rel="noopener" class="contact-card interactive">
-            <span class="contact-icon">↗</span>
-            <div class="contact-detail">
-              <span class="c-label">LinkedIn</span>
-              <span class="c-val">linkedin.com/in/syedqosainbukhari</span>
-            </div>
-          </a>
-
-          <div class="contact-card">
-            <span class="contact-icon">📍</span>
-            <div class="contact-detail">
-              <span class="c-label">Location</span>
-              <span class="c-val">District Haveli, AJK, Pakistan · Remote</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <form id="briefForm" class="contact-form reveal">
-        <div class="form-title">Send a Quick Message</div>
-        
-        <div class="form-group">
-          <label for="fName">Your Name</label>
-          <input id="fName" name="name" type="text" placeholder="John Doe" required>
-        </div>
-
-        <div class="form-group">
-          <label for="fEmail">Your Email</label>
-          <input id="fEmail" name="email" type="email" placeholder="john@example.com" required>
-        </div>
-
-        <div class="form-group">
-          <label>Primary Topic / Domain</label>
-          <div class="chip-group" id="chipGroup">
-            <button type="button" class="chip" data-chip="LLM Fine-Tuning & GenAI">LLM Fine-Tuning / GenAI</button>
-            <button type="button" class="chip" data-chip="RAG & Chatbots">RAG & Chatbots</button>
-            <button type="button" class="chip" data-chip="Computer Vision">Computer Vision</button>
-            <button type="button" class="chip" data-chip="MLOps & Deployment">MLOps & Deployment</button>
-            <button type="button" class="chip" data-chip="Role / Hiring Inquiry">Job Opportunity</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="fDetails">Project Details or Inquiry</label>
-          <textarea id="fDetails" name="details" rows="4" placeholder="Briefly describe what you're working on or what role you are hiring for..." required></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary submit-btn">
-          <span>Draft Email Message</span> →
-        </button>
-        <p class="form-note">Generates a pre-formatted email in your default email client.</p>
-      </form>
-    </div>
-  </section>
+  <table class="title-block" aria-label="Sheet details">
+    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>5 of 5</td></tr>
+    <tr><th>Subject</th><td colspan="3">Contact</td></tr>
+  </table>
+</section>
 
 </main>
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <div class="wrap footer-wrap">
-    <div class="footer-left">
-      <div class="footer-logo">QOSAIN<span class="dot">.</span>BUKHARI</div>
-      <div class="footer-tagline">AI & Machine Learning Engineer — GenAI · Fine-Tuning · CV · MLOps</div>
-    </div>
-    <div class="footer-nav">
-      <a href="#top">Back to Top ↑</a>
-      <a href="https://github.com/QosainBukhari" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://linkedin.com/in/syedqosainbukhari" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="Resume.pdf" target="_blank">Resume PDF</a>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">
-    <div>© 2026 Qosain Bukhari. Engineered for production.</div>
-  </div>
+<footer class="pad-foot">
+  <p>Plotted by hand in HTML, CSS and a little JavaScript. Hosted on GitHub Pages. <a href="v1/">Previous version</a></p>
 </footer>
-
-<!-- Toast Notification Container -->
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="script.js"></script>
 </body>
