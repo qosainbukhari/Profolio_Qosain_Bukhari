@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chest CT-Scan Classification | Qosain Bukhari</title>
+<meta name="description" content="A VGG16 transfer-learning classifier in a 4-stage DVC pipeline, and the evaluation leak I found behind its “100% accuracy”.">
+<meta name="author" content="Qosain Bukhari">
+<meta name="theme-color" content="#e3ead5">
+<link rel="canonical" href="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/chest-ct-classification.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chest CT-Scan Classification | Qosain Bukhari">
+<meta property="og:description" content="A VGG16 transfer-learning classifier in a 4-stage DVC pipeline, and the evaluation leak I found behind its “100% accuracy”.">
+<meta property="og:url" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/chest-ct-classification.html">
+<meta property="og:image" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/assets/img/qosain.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%231f2a56%22/><text x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2226%22 fill=%22%23eef2e4%22 text-anchor=%22middle%22>QB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-in">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span><span>Qosain Bukhari<small>Engineering computation pad</small></span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="main-nav" aria-label="Main"><a href="../index.html">Home</a><a href="../projects.html" aria-current="page">Projects</a><a href="../about.html">About</a><a href="../resume.html">Resume</a><a href="../index.html#contact">Contact</a></nav>
+</div>
+</header>
+<main id="main">
+<div class="wrap">
+<section class="case-hero" aria-labelledby="t">
+<p class="crumbs"><a href="../projects.html">Projects</a> / Chest CT-Scan Classification</p>
+<p class="spec">image classification · VGG16 transfer learning · 2 classes</p>
+<h1 id="t" class="page-title">Chest CT-Scan Classification</h1>
+<p class="lede">Classifies chest CT scans as adenocarcinoma (a type of lung cancer) or normal using transfer learning on VGG16, built as a reproducible DVC pipeline with MLflow tracking on DagsHub and a Flask app for predictions. I built it while learning MLOps from a guided course project, then audited it and found a data leak.</p>
+<div class="actions"><a class="btn primary" href="https://github.com/QosainBukhari/Chest_CT_Scan_Classification_End_to_end_Project_MLOPS" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span></a><a class="btn" href="../projects.html">All projects</a></div>
+</section>
+<figure class="figure reveal"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>chest-ct-classification</span></div><div class="schematic" role="img" aria-label="Pipeline: CT images, VGG16 base, Train, Evaluate, MLflow, Flask app"><span>CT images</span><i aria-hidden="true">→</i><span>VGG16 base</span><i aria-hidden="true">→</i><span>Train</span><i aria-hidden="true">→</i><span>Evaluate</span><i aria-hidden="true">→</i><span>MLflow</span><i aria-hidden="true">→</i><span>Flask app</span></div><figcaption>Four DVC stages, from data ingestion to evaluation, with metrics logged to MLflow and a Flask app on top.</figcaption></figure>
+<div class="metrics"><div class="metric reveal"><span class="num">100%</span><span class="what">Accuracy at first</span><span class="ctx">Too good to be true, which is what made me look for the bug.</span></div><div class="metric reveal"><span class="num">1/3</span><span class="what">Evaluation images leaked</span><span class="ctx">A third of the evaluation images had been seen in training.</span></div><div class="metric reveal"><span class="num">4</span><span class="what">DVC stages</span><span class="ctx">Ingest, prepare base model, train, evaluate; only changed stages re-run.</span></div><div class="metric reveal"><span class="num">224²</span><span class="what">Input size</span><span class="ctx">VGG16 with ImageNet weights, frozen base and a new softmax head.</span></div></div>
+<div class="case-grid">
+<article class="case-body">
+<h2><span class="hn">01</span>The problem</h2><p>Classifying chest CT scans as adenocarcinoma or normal is a classic small-data medical imaging task, where transfer learning from ImageNet is the standard starting point. I used it to learn how a deep-learning project becomes a reproducible pipeline instead of a notebook.</p><h2><span class="hn">02</span>Data</h2><p>A small two-class set of chest CT images (adenocarcinoma and normal), downloaded and unzipped by the ingestion stage. Images are resized to 224 × 224 and augmented with rotation, flips, shifts, shear and zoom during training.</p><h2><span class="hn">03</span>Approach</h2><ol class="steps"><li><b>Ingest.</b> Download and unzip the CT images into the artifacts folder.</li><li><b>Prepare the base model.</b> VGG16 with ImageNet weights, the top removed and the base frozen, plus a new head: Flatten, Dropout(0.5), Dense(2, softmax).</li><li><b>Train.</b> Adam at a 0.01 learning rate, 5 epochs, batch size 16, with augmentation; all hyper-parameters live in params.yaml.</li><li><b>Evaluate and track.</b> Loss and accuracy go to scores.json and MLflow on DagsHub; credentials come from environment variables, never code.</li><li><b>Serve.</b> A Flask app accepts an uploaded scan and returns the prediction.</li></ol><h2><span class="hn">04</span>Model setup</h2><div class="table-wrap"><table><thead><tr><th>Setting</th><th class="n">Value</th></tr></thead><tbody><tr><td>Base model</td><td class="n">VGG16, ImageNet, frozen</td></tr><tr><td>Head</td><td class="n">Flatten → Dropout(0.5) → Dense(2)</td></tr><tr><td>Optimiser</td><td class="n">Adam, lr 0.01</td></tr><tr><td>Epochs / batch</td><td class="n">5 / 16</td></tr><tr class="best"><td>Validation split</td><td class="n">one shared constant (the fix)</td></tr></tbody></table></div><p>After the fix, the reported accuracy comes from images the model never trained on; the scores are regenerated with <code>dvc repro</code>.</p><div class="callout"><p><b>The bug I found.</b> The first version reported 100% accuracy. Training used <code>validation_split=0.20</code> but evaluation used <code>0.30</code>, so evaluation ran on the first 30% of each class, and a third of those images had been in the training set. The fix was a single shared <code>VALIDATION_SPLIT</code> constant used by both stages. Lesson: define the split in exactly one place.</p></div><h2><span class="hn">05</span>System and deployment</h2><div class="flow"><div class="node"><b>Data ingestion</b><span>download + unzip</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Base model</b><span>VGG16 + head</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Training</b><span>augmentation</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Evaluation</b><span>scores.json, MLflow</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Flask app</b><span>upload → prediction</span></div></div><p><code>dvc repro</code> runs the stages in order and skips any whose code, parameters or data haven't changed; <code>dvc dag</code> shows the graph.</p><h2><span class="hn">06</span>Limitations</h2><ul><li>Small dataset with only two classes: a learning project, not a medical tool.</li><li>There is no test set separate from validation yet; the next step is a held-out test split and a confusion matrix.</li><li>Grad-CAM heatmaps, to show which region drives each prediction, are planned.</li></ul>
+</article>
+<aside class="aside" aria-label="Project facts">
+<div class="box"><h3>At a glance</h3><ul><li>2 classes, 224 × 224 CT images</li><li>VGG16 transfer learning</li><li>4-stage DVC pipeline</li><li>MLflow on DagsHub</li><li>Flask app</li></ul></div>
+<div class="box"><h3>Tools</h3><ul class="badges"><li>TensorFlow</li><li>Keras</li><li>VGG16</li><li>DVC</li><li>MLflow</li><li>DagsHub</li><li>Flask</li></ul></div>
+<div class="box"><h3>Links</h3><a class="btn sm" href="https://github.com/QosainBukhari/Chest_CT_Scan_Classification_End_to_end_Project_MLOPS" target="_blank" rel="noopener">Source code ↗</a></div>
+</aside>
+</div>
+<nav class="pager" aria-label="More projects">
+<a href="fake-news-detection.html"><small>← Previous</small>Fake News Detection</a>
+<a class="next" href="cancellation-radar.html"><small>Next →</small>Cancellation Radar</a>
+</nav>
+</div>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<div class="contact reveal">
+<div>
+<span class="status">Open to work</span>
+<h2 id="contact-title">Let's talk about ML engineering roles.</h2>
+<p>I'm looking for a junior machine learning engineer role or an ML internship. If you have a model that needs to get from a notebook to production, email or WhatsApp is the quickest way to reach me.</p>
+<ul class="contact-meta">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>On-site in Pakistan or remote</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Azad Kashmir, Pakistan</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pakistan time (UTC+5)</li>
+</ul>
+<div class="actions">
+<a class="btn primary" href="mailto:bukhariqosain824@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+<ul class="contact-list">
+<li><button class="c-item" type="button" data-copy="bukhariqosain824@gmail.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span><span class="c-txt"><span class="k">Email · click to copy</span><span class="v">bukhariqosain824@gmail.com</span></span><span class="c-go" aria-hidden="true">⧉</span></button></li>
+<li><a class="c-item" href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></span><span class="c-txt"><span class="k">WhatsApp</span><span class="v">Message me on WhatsApp</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></span><span class="c-txt"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/<wbr>syedqosainbukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://github.com/QosainBukhari" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></span><span class="c-txt"><span class="k">GitHub</span><span class="v">github.com/QosainBukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-in">
+<div class="footer-brand">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span>Qosain Bukhari</a>
+<p>Machine learning engineer. I train models and ship them with data checks, honest evaluation, an API, Docker and CI around them.</p>
+</div>
+<nav aria-labelledby="f-pages"><h2 id="f-pages">Pages</h2><ul class="footer-links"><li><a href="../projects.html">Projects</a></li><li><a href="../about.html">About</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../Qosain_Bukhari_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav>
+<div><h2>Connect</h2><ul class="socials">
+<li><a href="mailto:bukhariqosain824@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></a></li>
+<li><a href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></a></li>
+<li><a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> Syed Qosain Bukhari</span><a href="#main">Back to top ↑</a></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

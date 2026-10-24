@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects | Qosain Bukhari</title>
+<meta name="description" content="Machine learning projects by Qosain Bukhari: hotel cancellation prediction, YOLOv12 accident detection, a RAG chatbot, fake news detection and chest CT classification.">
+<meta name="author" content="Qosain Bukhari">
+<meta name="theme-color" content="#e3ead5">
+<link rel="canonical" href="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Projects | Qosain Bukhari">
+<meta property="og:description" content="Machine learning projects by Qosain Bukhari: hotel cancellation prediction, YOLOv12 accident detection, a RAG chatbot, fake news detection and chest CT classification.">
+<meta property="og:url" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects.html">
+<meta property="og:image" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/assets/img/qosain.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%231f2a56%22/><text x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2226%22 fill=%22%23eef2e4%22 text-anchor=%22middle%22>QB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-in">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">QB</span><span>Qosain Bukhari<small>Engineering computation pad</small></span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="main-nav" aria-label="Main"><a href="index.html">Home</a><a href="projects.html" aria-current="page">Projects</a><a href="about.html">About</a><a href="resume.html">Resume</a><a href="index.html#contact">Contact</a></nav>
+</div>
+</header>
+<main id="main">
+<section class="section tight" aria-labelledby="t">
+<div class="wrap">
+<p class="eyebrow">Projects</p>
+<h1 id="t" class="page-title">Real data, honest numbers, shipped code.</h1>
+<p class="lede">End-to-end projects across tabular ML, computer vision, NLP and RAG. Each one has the code on GitHub and a case study on how it was built: the data, the evaluation, the system around the model and what it still gets wrong.</p>
+<h2 class="sr-only">All projects</h2>
+<div class="filter-bar"><div class="filters" id="filters" role="toolbar" aria-label="Filter projects by area" hidden></div><p class="count" id="project-count" aria-live="polite">5 projects</p></div>
+<div class="grid-2" data-projects="all">
+<article class="pcard reveal" data-category="Tabular ML|MLOps">
+<div class="shot"><img src="assets/img/radar-predict.jpg" alt="Cancellation Radar web app: a booking form, a risk dial at over 99% and the SHAP factors behind the score" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-01</span><span class="tag live">● Live demo</span></div>
+<div class="pbody">
+<div class="spec">binary classification · 119,390 bookings · time-based split</div>
+<h3><a href="projects/cancellation-radar.html">Cancellation Radar</a></h3>
+<p>Scores every new hotel booking for cancellation risk at the moment it is made, explains the score, and flags only the bookings worth acting on.</p>
+<ul class="chips"><li><b>94%</b> of cancellations caught</li><li><b>−76%</b> cost of mistakes</li><li><b>0.824</b> ROC-AUC</li></ul>
+<ul class="badges" aria-label="Tools"><li>XGBoost</li><li>Optuna</li><li>SHAP</li><li>MLflow</li><li>DVC</li><li>Pandera</li></ul>
+<div class="plinks"><a href="https://cancellation-radar.vercel.app" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/QosainBukhari/Hotel_Booking_cancellation_Prediction" target="_blank" rel="noopener">Code</a><a class="case" href="projects/cancellation-radar.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+<article class="pcard reveal" data-category="Computer Vision">
+<div class="shot"><img src="assets/img/accident-pred.jpg" alt="YOLOv12 predictions on validation images, with boxes drawn around fire and smoke" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-02</span><span class="tag">Final year project</span></div>
+<div class="pbody">
+<div class="spec">object detection · YOLOv12n · 3 classes</div>
+<h3><a href="projects/accident-detection.html">AI Accident Detection &amp; Emergency Response</a></h3>
+<p>A custom YOLOv12 model that spots road accidents in images and video, rates their severity and alerts responders with annotated evidence.</p>
+<ul class="chips"><li><b>89.9%</b> mAP@50</li><li><b>92.5%</b> precision</li><li><b>86.8%</b> recall</li></ul>
+<ul class="badges" aria-label="Tools"><li>YOLOv12</li><li>PyTorch</li><li>OpenCV</li><li>FastAPI</li><li>React</li><li>MySQL</li></ul>
+<div class="plinks"><a href="https://github.com/QosainBukhari/Accident_detection_system_Yolov12" target="_blank" rel="noopener">Code</a><a class="case" href="projects/accident-detection.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+<article class="pcard reveal" data-category="GenAI & RAG">
+<div class="shot"><img src="assets/img/rag-chat.jpg" alt="Document Q&amp;A chatbot answering &#x27;what is machine learning&#x27; from an uploaded lecture PDF" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-03</span><span class="tag">RAG</span></div>
+<div class="pbody">
+<div class="spec">retrieval-augmented generation · Llama 3.1 8B · ChromaDB</div>
+<h3><a href="projects/rag-chatbot.html">Document Q&amp;A RAG Chatbot</a></h3>
+<p>Upload a PDF and ask questions about it. Answers are grounded in the document and cite the pages they came from.</p>
+<ul class="chips"><li><b>85%</b> retrieval accuracy</li><li><b>90%</b> faithful answers</li><li><b>3.2 s</b> avg response</li></ul>
+<ul class="badges" aria-label="Tools"><li>LangChain</li><li>ChromaDB</li><li>Sentence Transformers</li><li>Llama 3.1 (Groq)</li><li>FastAPI</li><li>Streamlit</li></ul>
+<div class="plinks"><a href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot" target="_blank" rel="noopener">Code</a><a class="case" href="projects/rag-chatbot.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+<article class="pcard reveal" data-category="NLP|MLOps">
+<div class="shot"><div class="schematic" role="img" aria-label="Pipeline: Raw articles, Clean text, TF-IDF, Random Forest, MLflow, /predict"><span>Raw articles</span><i aria-hidden="true">→</i><span>Clean text</span><i aria-hidden="true">→</i><span>TF-IDF</span><i aria-hidden="true">→</i><span>Random Forest</span><i aria-hidden="true">→</i><span>MLflow</span><i aria-hidden="true">→</i><span>/predict</span></div><span class="pno">P-04</span><span class="tag">MLOps</span></div>
+<div class="pbody">
+<div class="spec">text classification · WELFake · 72,134 articles</div>
+<h3><a href="projects/fake-news-detection.html">Fake News Detection</a></h3>
+<p>Classifies news articles as real or fake with a reproducible DVC pipeline, MLflow tracking and a FastAPI endpoint in Docker.</p>
+<ul class="chips"><li><b>95.8%</b> F1 score</li><li><b>96.9%</b> recall</li><li><b>4</b> models compared</li></ul>
+<ul class="badges" aria-label="Tools"><li>Scikit-learn</li><li>NLTK</li><li>TF-IDF</li><li>MLflow</li><li>DVC</li><li>FastAPI</li></ul>
+<div class="plinks"><a href="https://github.com/QosainBukhari/Fake_News_Detection_End_to_End_MLOPS" target="_blank" rel="noopener">Code</a><a class="case" href="projects/fake-news-detection.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+<article class="pcard reveal" data-category="Computer Vision|MLOps">
+<div class="shot"><div class="schematic" role="img" aria-label="Pipeline: CT images, VGG16 base, Train, Evaluate, MLflow, Flask app"><span>CT images</span><i aria-hidden="true">→</i><span>VGG16 base</span><i aria-hidden="true">→</i><span>Train</span><i aria-hidden="true">→</i><span>Evaluate</span><i aria-hidden="true">→</i><span>MLflow</span><i aria-hidden="true">→</i><span>Flask app</span></div><span class="pno">P-05</span><span class="tag">Bug found &amp; fixed</span></div>
+<div class="pbody">
+<div class="spec">image classification · VGG16 transfer learning · 2 classes</div>
+<h3><a href="projects/chest-ct-classification.html">Chest CT-Scan Classification</a></h3>
+<p>A VGG16 transfer-learning classifier in a 4-stage DVC pipeline, and the evaluation leak I found behind its “100% accuracy”.</p>
+<ul class="chips"><li><b>1/3</b> leaked eval images found</li><li><b>4</b> DVC stages</li><li><b>VGG16</b> transfer learning</li></ul>
+<ul class="badges" aria-label="Tools"><li>TensorFlow</li><li>Keras</li><li>VGG16</li><li>DVC</li><li>MLflow</li><li>DagsHub</li></ul>
+<div class="plinks"><a href="https://github.com/QosainBukhari/Chest_CT_Scan_Classification_End_to_end_Project_MLOPS" target="_blank" rel="noopener">Code</a><a class="case" href="projects/chest-ct-classification.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:64px">
+<p class="eyebrow">Also on GitHub</p>
+<h2 style="margin-top:10px">Smaller projects and experiments</h2>
+<ul class="more-list"><li><a href="https://github.com/QosainBukhari/End_to_end_Network_security_project" target="_blank" rel="noopener"><span>Network Security ML Pipeline ↗</span><em>Modular ingestion, transformation and training</em></a></li><li><a href="https://github.com/QosainBukhari/Telco-Customer-Churn-Prediction" target="_blank" rel="noopener"><span>Telco Customer Churn ↗</span><em>Classification and evaluation</em></a></li><li><a href="https://github.com/QosainBukhari/End_to_end_ReD_Wine_Quality_Mlops_Project" target="_blank" rel="noopener"><span>Red Wine Quality MLOps ↗</span><em>End-to-end pipeline</em></a></li><li><a href="https://github.com/QosainBukhari/End-To-end-Project-Using-Pipeline-Machinelearning" target="_blank" rel="noopener"><span>Student Score Predictor ↗</span><em>End-to-end ML pipeline</em></a></li><li><a href="https://github.com/QosainBukhari/Breast_Cancer_Detection" target="_blank" rel="noopener"><span>Breast Cancer Detection ↗</span><em>Tabular classification</em></a></li><li><a href="https://github.com/QosainBukhari/Weather-Report-Automation---n8n-Workflow" target="_blank" rel="noopener"><span>Weather Report Automation ↗</span><em>n8n workflow</em></a></li></ul>
+</div>
+</div>
+</section>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<div class="contact reveal">
+<div>
+<span class="status">Open to work</span>
+<h2 id="contact-title">Let's talk about ML engineering roles.</h2>
+<p>I'm looking for a junior machine learning engineer role or an ML internship. If you have a model that needs to get from a notebook to production, email or WhatsApp is the quickest way to reach me.</p>
+<ul class="contact-meta">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>On-site in Pakistan or remote</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Azad Kashmir, Pakistan</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pakistan time (UTC+5)</li>
+</ul>
+<div class="actions">
+<a class="btn primary" href="mailto:bukhariqosain824@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+<ul class="contact-list">
+<li><button class="c-item" type="button" data-copy="bukhariqosain824@gmail.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span><span class="c-txt"><span class="k">Email · click to copy</span><span class="v">bukhariqosain824@gmail.com</span></span><span class="c-go" aria-hidden="true">⧉</span></button></li>
+<li><a class="c-item" href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></span><span class="c-txt"><span class="k">WhatsApp</span><span class="v">Message me on WhatsApp</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></span><span class="c-txt"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/<wbr>syedqosainbukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://github.com/QosainBukhari" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></span><span class="c-txt"><span class="k">GitHub</span><span class="v">github.com/QosainBukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-in">
+<div class="footer-brand">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">QB</span>Qosain Bukhari</a>
+<p>Machine learning engineer. I train models and ship them with data checks, honest evaluation, an API, Docker and CI around them.</p>
+</div>
+<nav aria-labelledby="f-pages"><h2 id="f-pages">Pages</h2><ul class="footer-links"><li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li><li><a href="resume.html">Resume</a></li><li><a href="Qosain_Bukhari_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav>
+<div><h2>Connect</h2><ul class="socials">
+<li><a href="mailto:bukhariqosain824@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></a></li>
+<li><a href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></a></li>
+<li><a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> Syed Qosain Bukhari</span><a href="#main">Back to top ↑</a></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

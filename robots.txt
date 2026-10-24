@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/sitemap.xml

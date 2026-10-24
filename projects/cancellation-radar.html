@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cancellation Radar | Qosain Bukhari</title>
+<meta name="description" content="Scores every new hotel booking for cancellation risk at the moment it is made, explains the score, and flags only the bookings worth acting on.">
+<meta name="author" content="Qosain Bukhari">
+<meta name="theme-color" content="#e3ead5">
+<link rel="canonical" href="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/cancellation-radar.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cancellation Radar | Qosain Bukhari">
+<meta property="og:description" content="Scores every new hotel booking for cancellation risk at the moment it is made, explains the score, and flags only the bookings worth acting on.">
+<meta property="og:url" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/cancellation-radar.html">
+<meta property="og:image" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/assets/img/qosain.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%231f2a56%22/><text x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2226%22 fill=%22%23eef2e4%22 text-anchor=%22middle%22>QB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-in">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span><span>Qosain Bukhari<small>Engineering computation pad</small></span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="main-nav" aria-label="Main"><a href="../index.html">Home</a><a href="../projects.html" aria-current="page">Projects</a><a href="../about.html">About</a><a href="../resume.html">Resume</a><a href="../index.html#contact">Contact</a></nav>
+</div>
+</header>
+<main id="main">
+<div class="wrap">
+<section class="case-hero" aria-labelledby="t">
+<p class="crumbs"><a href="../projects.html">Projects</a> / Cancellation Radar</p>
+<p class="spec">binary classification · 119,390 bookings · time-based split</p>
+<h1 id="t" class="page-title">Cancellation Radar</h1>
+<p class="lede">An end-to-end ML service that scores each hotel booking for cancellation risk using only what is known at booking time. A leakage-free XGBoost model, tested on the newest bookings, is served from FastAPI on Vercel with SHAP explanations, batch scoring and drift checks.</p>
+<div class="actions"><a class="btn primary" href="https://cancellation-radar.vercel.app" target="_blank" rel="noopener">Live demo <span aria-hidden="true">↗</span></a><a class="btn" href="https://github.com/QosainBukhari/Hotel_Booking_cancellation_Prediction" target="_blank" rel="noopener">Code on GitHub</a><a class="btn" href="../projects.html">All projects</a></div>
+</section>
+<figure class="figure reveal"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>cancellation-radar</span></div><img src="../assets/img/radar-predict.jpg" alt="Cancellation Radar web app: a booking form, a risk dial at over 99% and the SHAP factors behind the score" loading="eager" decoding="async"><figcaption>The live app: fill in a booking to get a cancellation risk, the cost-optimal flag and the eight factors that moved the score.</figcaption></figure>
+<div class="metrics"><div class="metric reveal"><span class="num">0.824</span><span class="what">ROC-AUC on future bookings</span><span class="ctx">Tested on the newest 20% of arrivals (23,878 bookings), with no information from after the booking.</span></div><div class="metric reveal"><span class="num">94%</span><span class="what">Cancellations caught</span><span class="ctx">At the cost-optimal threshold. About half of flagged bookings really cancel, which is fine because a reminder call is cheap.</span></div><div class="metric reveal"><span class="num">€9.69</span><span class="what">Cost per booking</span><span class="ctx">Down from €40.86 with no model, a 76% cut, using €100 per missed cancellation and €20 per unneeded action.</span></div><div class="metric reveal"><span class="num">38</span><span class="what">Automated tests</span><span class="ctx">Data, drift, pipeline, registry and API tests run with ruff on every push in GitHub Actions.</span></div></div>
+<div class="case-grid">
+<article class="case-body">
+<h2><span class="hn">01</span>The problem</h2><p>In the Hotel Booking Demand data, <strong>37% of bookings were cancelled</strong>: 44,224 bookings worth about €16.7 million in booked room revenue. Cancelled bookings were made much further ahead (median lead time 113 days against 45), so the rooms are hard to resell.</p><p>The usual defences are blunt. Overbooking every night risks turning away guests who do arrive, and strict non-refundable deposits for everyone put customers off. The hotel needs to know <em>at the moment a booking is made</em> how likely it is to be cancelled, and whether it is worth doing something about it.</p><h2><span class="hn">02</span>Data</h2><p>119,390 bookings at a city hotel and a resort hotel in Portugal, July 2015 to August 2017. Before modelling I checked which columns are only filled in at check-in, because they make a model look brilliant in testing and useless in practice.</p><p>Two were proven from the data, not just guessed: <strong>7,416 bookings requested parking and none cancelled</strong> (parking is recorded on arrival), and <code>country</code> is confirmed at check-in, so no-shows look like cancellations. Six leaking columns are dropped at ingestion, and the API rejects them with a 422 error.</p><h2><span class="hn">03</span>Approach</h2><ol class="steps"><li><b>Remove leakage.</b> Dropped the six check-in columns. Honest ROC-AUC fell from 0.875 to 0.824, which is the number that will hold up in production.</li><li><b>Test the way it will be used.</b> Trained on older arrivals and tested on the newest 20%. A random split overstates ROC-AUC by about 0.08 because it mixes past and future bookings.</li><li><b>Tune and compare.</b> Optuna searched XGBoost hyper-parameters over 30 trials with early stopping. Logistic Regression and Random Forest went through exactly the same steps as baselines.</li><li><b>Choose the threshold by cost, not 0.5.</b> A missed cancellation costs about €100 (an empty room), a needless reminder about €20. The threshold that minimises expected cost on a validation slice is 0.12.</li><li><b>Validate and monitor.</b> Pandera checks every column against a schema, PSI drift checks run in the API and CLI, and Evidently writes a drift report on every training run.</li><li><b>Promote safely.</b> The MLflow Model Registry gives a new version the @production alias only if it beats the live model on the same test set. Rollback is one command.</li></ol><h2><span class="hn">04</span>Results</h2><div class="table-wrap"><table><thead><tr><th>Model</th><th class="n">ROC-AUC</th><th class="n">PR-AUC</th><th class="n">Cost / booking</th></tr></thead><tbody><tr class="best"><td>XGBoost, Optuna-tuned (production)</td><td class="n">0.824</td><td class="n">0.795</td><td class="n">€9.69</td></tr><tr><td>Random Forest</td><td class="n">0.829</td><td class="n">0.798</td><td class="n">€9.65</td></tr><tr><td>Logistic Regression</td><td class="n">0.799</td><td class="n">0.728</td><td class="n">€10.87</td></tr><tr class="dim"><td>No model (flag nothing)</td><td class="n"></td><td class="n"></td><td class="n">€40.86</td></tr></tbody></table></div><p>Both tree models clearly beat Logistic Regression, and Random Forest and XGBoost are within 0.005 ROC-AUC of each other. XGBoost stays in production because it is faster and the SHAP code is built around it; picking the winner on the test set would bias the test score.</p><div class="callout"><p><b>Why not the 0.95 often quoted for this dataset?</b> The same quick model scores 0.954 with a random split and the check-in columns kept, 0.906 with leakage removed, and 0.827 with a time split and no leakage. The higher numbers measure the leak, not the model.</p></div><h2><span class="hn">05</span>System and deployment</h2><div class="flow"><div class="node"><b>Web UI</b><span>HTML, CSS, JS</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>FastAPI</b><span>/predict, /batch, /drift</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>sklearn Pipeline</b><span>features + XGBoost</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>MLflow Registry</b><span>@production version</span></div></div><p>Training tools are too heavy for hosting, so a lean serving bundle without MLflow (about 290 MB) runs as a Vercel Function. A multi-stage Docker image with the model built in runs anywhere else.</p><div class="gallery"><figure class="figure"><img src="../assets/img/radar-batch.jpg" alt="Batch scoring: upload a CSV to get the risk distribution and the riskiest bookings." loading="lazy" decoding="async"><figcaption>Batch scoring: upload a CSV to get the risk distribution and the riskiest bookings.</figcaption></figure><figure class="figure"><img src="../assets/img/radar-drift.jpg" alt="Drift monitor: PSI per feature against the production model&#x27;s training data." loading="lazy" decoding="async"><figcaption>Drift monitor: PSI per feature against the production model&#x27;s training data.</figcaption></figure></div><h2><span class="hn">06</span>Limitations</h2><ul><li>The split is by arrival date; a stricter split would use the booking date (arrival minus lead time).</li><li>99% of non-refundable bookings cancelled, which looks like a recording artefact, and the model relies on it heavily.</li><li>Probabilities run low on the test period because of seasonal drift; recent-month retraining or calibration would fix this.</li><li>The two costs are assumptions to agree with the business before using the flags. The API has no authentication.</li></ul>
+</article>
+<aside class="aside" aria-label="Project facts">
+<div class="box"><h3>At a glance</h3><ul><li>119,390 bookings, 2015–2017</li><li>Newest 20% held out (23,878)</li><li>XGBoost + Optuna, SHAP</li><li>Threshold 0.12, chosen by cost</li><li>FastAPI on Vercel, Docker</li><li>38 tests and CI on every push</li></ul></div>
+<div class="box"><h3>Tools</h3><ul class="badges"><li>XGBoost</li><li>Optuna</li><li>SHAP</li><li>MLflow</li><li>DVC</li><li>Pandera</li><li>Evidently</li><li>FastAPI</li><li>Docker</li><li>Vercel</li><li>GitHub Actions</li></ul></div>
+<div class="box"><h3>Links</h3><a class="btn primary sm" href="https://cancellation-radar.vercel.app" target="_blank" rel="noopener">Try the live demo ↗</a><a class="btn sm" href="https://github.com/QosainBukhari/Hotel_Booking_cancellation_Prediction" target="_blank" rel="noopener">Source code ↗</a></div>
+</aside>
+</div>
+<nav class="pager" aria-label="More projects">
+<a href="chest-ct-classification.html"><small>← Previous</small>Chest CT-Scan Classification</a>
+<a class="next" href="accident-detection.html"><small>Next →</small>AI Accident Detection &amp; Emergency Response</a>
+</nav>
+</div>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<div class="contact reveal">
+<div>
+<span class="status">Open to work</span>
+<h2 id="contact-title">Let's talk about ML engineering roles.</h2>
+<p>I'm looking for a junior machine learning engineer role or an ML internship. If you have a model that needs to get from a notebook to production, email or WhatsApp is the quickest way to reach me.</p>
+<ul class="contact-meta">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>On-site in Pakistan or remote</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Azad Kashmir, Pakistan</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pakistan time (UTC+5)</li>
+</ul>
+<div class="actions">
+<a class="btn primary" href="mailto:bukhariqosain824@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+<ul class="contact-list">
+<li><button class="c-item" type="button" data-copy="bukhariqosain824@gmail.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span><span class="c-txt"><span class="k">Email · click to copy</span><span class="v">bukhariqosain824@gmail.com</span></span><span class="c-go" aria-hidden="true">⧉</span></button></li>
+<li><a class="c-item" href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></span><span class="c-txt"><span class="k">WhatsApp</span><span class="v">Message me on WhatsApp</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></span><span class="c-txt"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/<wbr>syedqosainbukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://github.com/QosainBukhari" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></span><span class="c-txt"><span class="k">GitHub</span><span class="v">github.com/QosainBukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-in">
+<div class="footer-brand">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span>Qosain Bukhari</a>
+<p>Machine learning engineer. I train models and ship them with data checks, honest evaluation, an API, Docker and CI around them.</p>
+</div>
+<nav aria-labelledby="f-pages"><h2 id="f-pages">Pages</h2><ul class="footer-links"><li><a href="../projects.html">Projects</a></li><li><a href="../about.html">About</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../Qosain_Bukhari_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav>
+<div><h2>Connect</h2><ul class="socials">
+<li><a href="mailto:bukhariqosain824@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></a></li>
+<li><a href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></a></li>
+<li><a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> Syed Qosain Bukhari</span><a href="#main">Back to top ↑</a></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

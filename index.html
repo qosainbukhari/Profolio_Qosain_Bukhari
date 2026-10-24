@@ -1,246 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Qosain Bukhari — Machine Learning Engineer</title>
-<meta name="description" content="Qosain Bukhari, junior machine learning engineer from Azad Kashmir, Pakistan. Computer vision, RAG and MLOps projects with real results.">
+<title>Qosain Bukhari | Machine Learning Engineer</title>
+<meta name="description" content="Qosain Bukhari, junior machine learning engineer from Azad Kashmir, Pakistan. Computer vision, RAG and MLOps: data checks, honest evaluation, FastAPI, Docker and CI.">
+<meta name="author" content="Qosain Bukhari">
+<meta name="theme-color" content="#e3ead5">
+<link rel="canonical" href="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Qosain Bukhari | Machine Learning Engineer">
+<meta property="og:description" content="Qosain Bukhari, junior machine learning engineer from Azad Kashmir, Pakistan. Computer vision, RAG and MLOps: data checks, honest evaluation, FastAPI, Docker and CI.">
+<meta property="og:url" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/">
+<meta property="og:image" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/assets/img/qosain.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%231f2a56%22/><text x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2226%22 fill=%22%23eef2e4%22 text-anchor=%22middle%22>QB</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;1,400&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-
-<a class="skip" href="#work">Skip to projects</a>
-
-<header class="pad-top">
-  <span class="pad-title">Engineering computation pad</span>
-  <nav aria-label="Sections">
-    <a href="#work">Projects</a>
-    <a href="#toolkit">Toolkit</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-in">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">QB</span><span>Qosain Bukhari<small>Engineering computation pad</small></span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="main-nav" aria-label="Main"><a href="index.html" aria-current="page">Home</a><a href="projects.html">Projects</a><a href="about.html">About</a><a href="resume.html">Resume</a><a href="index.html#contact">Contact</a></nav>
+</div>
 </header>
-
-<main>
-
-<!-- ============ SHEET 1: HERO ============ -->
-<section class="sheet hero" aria-labelledby="name">
-  <div class="hero-text">
-    <h1 id="name">Qosain<br>Bukhari</h1>
-    <p class="role">Machine learning engineer</p>
-    <p class="lede">I train models and ship them: data checks, honest evaluation, an API, Docker and CI around it. Computer vision, RAG and MLOps, from Azad Kashmir, Pakistan.</p>
-    <p class="status"><span class="dot" aria-hidden="true"></span>Open to junior ML engineer roles and internships, remote or on-site.</p>
-    <div class="actions">
-      <a class="btn ink" href="#work">See the projects</a>
-      <a class="btn" href="mailto:bukhariqosain824@gmail.com">Email me</a>
-      <a class="btn" href="Resume.pdf">Resume (PDF)</a>
-    </div>
-  </div>
-
-  <figure class="hero-plot">
-    <svg id="trainingPlot" viewBox="0 0 640 440" role="img" aria-labelledby="tp-title tp-desc">
-      <title id="tp-title">YOLOv12 training curve</title>
-      <desc id="tp-desc">Validation mAP at IoU 0.5 rises from 0.06 at epoch 1 to 0.91 at epoch 40 while training the accident detection model.</desc>
-    </svg>
-    <figcaption>Fig. 1 — Validation mAP@50 while training my accident detector, epoch by epoch. Real numbers from <code>results.csv</code>.</figcaption>
-  </figure>
-
-  <table class="title-block" aria-label="Sheet details">
-    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>1 of 5</td></tr>
-    <tr><th>Subject</th><td colspan="3">Who I am</td></tr>
-  </table>
+<main id="main">
+<section class="hero" aria-labelledby="hero-title">
+<div class="wrap hero-in">
+<div>
+<p class="eyebrow enter">Machine learning engineer · Azad Kashmir, Pakistan</p>
+<h1 id="hero-title" class="enter d2">Qosain<br>Bukhari</h1>
+<p class="role enter d2">I train models and ship them.</p>
+<p class="focus enter d3">Computer Vision <span>·</span> RAG <span>·</span> Tabular ML <span>·</span> MLOps</p>
+<p class="lede enter d3">I'm a Software Engineering graduate from MUST, Mirpur. I take models from raw data to tested, containerised APIs: data checks, leakage-free evaluation, FastAPI, Docker, MLflow and CI around every one.</p>
+<div class="actions enter d4">
+<a class="btn primary" href="projects.html">Explore projects <span class="arrow" aria-hidden="true">→</span></a>
+<a class="btn" href="resume.html">View resume</a>
+<a class="btn" href="https://github.com/QosainBukhari" target="_blank" rel="noopener">GitHub</a>
+<a class="btn" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener">LinkedIn</a>
+</div>
+<p class="hero-meta enter d5"><span class="pulse" aria-hidden="true"></span>Open to junior ML engineer roles and ML internships · on-site or remote</p>
+</div>
+<figure class="portrait enter d2">
+<div class="portrait-frame">
+<span class="tape l" aria-hidden="true"></span><span class="tape r" aria-hidden="true"></span>
+<picture><source srcset="assets/img/qosain.webp" type="image/webp"><img src="assets/img/qosain.png" alt="Portrait of Qosain Bukhari" width="500" height="500"></picture>
+<span class="bbox" aria-hidden="true"><span>engineer · 0.99</span></span>
+</div>
+<figcaption>Fig. 1: BS Software Engineering, MUST '26</figcaption>
+</figure>
+</div>
 </section>
 
-<!-- ============ SHEET 2: PROJECTS ============ -->
-<section class="sheet" id="work" aria-labelledby="work-h">
-  <div class="sheet-head">
-    <h2 id="work-h">Projects</h2>
-    <p class="sheet-note">Six systems, each with the number I'd defend in an interview. Every result comes from the repo it links to.</p>
-  </div>
-
-  <!-- Hotel -->
-  <article class="project feature">
-    <div class="p-body">
-      <h3>Cancellation Radar</h3>
-      <p class="p-sub">Hotel booking cancellation prediction · <a href="https://cancellation-radar.vercel.app">live demo</a></p>
-      <p>Hotels lose 37% of bookings to cancellations. This service scores each booking the moment it's made, explains the score with SHAP, and flags only the bookings worth a reminder call.</p>
-      <p>The hard part was honesty. Six columns are only filled in at check-in, so I dropped them (and proved two of them leak from the data). I tested on the newest 20% of bookings, not a random split. ROC-AUC fell from 0.954 to about 0.82 — the lower number is the real one.</p>
-      <ul class="stack"><li>XGBoost</li><li>Optuna</li><li>SHAP</li><li>MLflow Registry</li><li>DVC</li><li>Evidently</li><li>FastAPI</li><li>Docker</li><li>Vercel</li></ul>
-      <p class="links"><a href="https://cancellation-radar.vercel.app">Open the live demo</a><a href="https://github.com/QosainBukhari/Hotel_Booking_cancellation_Prediction">Code on GitHub</a></p>
-    </div>
-    <figure class="p-plot">
-      <svg class="bars" data-unit="€" data-max="45" data-label="Cost of mistakes per booking (€)" data-bars='[["No model",40.86,"muted"],["Logistic regression",10.87],["Random forest",9.65],["XGBoost (live)",9.69,"pen"]]' role="img" aria-label="Cost of mistakes per booking: no model 40.86 euro, logistic regression 10.87, random forest 9.65, XGBoost 9.69."></svg>
-      <figcaption>Fig. 2 — Expected cost of wrong decisions on 23,878 unseen bookings. <span class="note">−76% vs. doing nothing</span></figcaption>
-    </figure>
-  </article>
-
-  <!-- Accident -->
-  <article class="project">
-    <div class="p-body">
-      <h3>Accident detection &amp; emergency response</h3>
-      <p class="p-sub">Final year project</p>
-      <p>A custom YOLOv12 model finds fire, moderate and severe accidents in uploaded images and video. A FastAPI backend stores incidents, a React dashboard shows them, and alerts go out by email or WhatsApp.</p>
-      <p>Tested on 1,800 held-out images: 89.9% mAP@50. Fire is the weak class — smoke has no clean edges — so that's where more data goes next.</p>
-      <ul class="stack"><li>YOLOv12</li><li>PyTorch</li><li>OpenCV</li><li>FastAPI</li><li>MySQL + Alembic</li><li>JWT auth</li><li>React</li><li>Docker Compose</li><li>pytest</li></ul>
-      <p class="links"><a href="https://github.com/QosainBukhari/Accident_detection_system_Yolov12">Code on GitHub</a></p>
-    </div>
-    <figure class="p-plot">
-      <svg class="bars" data-unit="%" data-max="100" data-label="Test mAP@50 by class (%)" data-bars='[["Fire",72.9,"pen"],["Moderate",97.3],["Severe",99.4],["All classes",89.9,"bold"]]' role="img" aria-label="Test mAP at 50 by class: fire 72.9 percent, moderate 97.3, severe 99.4, all classes 89.9."></svg>
-      <figcaption>Fig. 3 — Per-class results on the test set.</figcaption>
-    </figure>
-  </article>
-
-  <!-- RAG -->
-  <article class="project">
-    <div class="p-body">
-      <h3>Document Q&amp;A chatbot</h3>
-      <p class="p-sub">Retrieval-augmented generation</p>
-      <p>Upload PDFs, ask questions, get answers that cite the page they came from. Text is chunked, embedded with MiniLM, stored in ChromaDB and answered by Llama 3.1 through Groq, with conversation memory.</p>
-      <p>I checked it by hand on 20 question–answer pairs across several documents.</p>
-      <ul class="stack"><li>LangChain</li><li>ChromaDB</li><li>Sentence-Transformers</li><li>Llama 3.1 (Groq)</li><li>FastAPI</li><li>Streamlit</li><li>GitHub Actions</li></ul>
-      <p class="links"><a href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot">Code on GitHub</a></p>
-    </div>
-    <figure class="p-plot">
-      <svg class="bars" data-unit="%" data-max="100" data-label="Manual check on 20 questions (%)" data-bars='[["Right passage retrieved",85],["Answer faithful to source",90,"bold"]]' role="img" aria-label="Manual evaluation on 20 questions: right passage retrieved 85 percent, answer faithful to source 90 percent."></svg>
-      <figcaption>Fig. 4 — Small sample, so read it as a sanity check, not a benchmark.</figcaption>
-    </figure>
-  </article>
-
-  <!-- CommerceIQ -->
-  <article class="project">
-    <div class="p-body">
-      <h3>CommerceIQ</h3>
-      <p class="p-sub">E-commerce analytics platform</p>
-      <p>About 100,000 real orders from the Olist dataset, cleaned with Pandas into a MySQL schema, queried with hand-written SQL, served by 11 FastAPI endpoints and drawn in a React dashboard: revenue, growth, products, sellers, payments and geography.</p>
-      <ul class="stack"><li>Pandas ETL</li><li>MySQL</li><li>SQL</li><li>FastAPI</li><li>React</li><li>Tailwind</li><li>Recharts</li><li>Docker</li></ul>
-      <p class="links"><a href="https://github.com/QosainBukhari/CommerceIQ_Analytics_Platform">Code on GitHub</a></p>
-    </div>
-    <figure class="p-plot photo">
-      <img src="assets/commerceiq.jpg" alt="CommerceIQ dashboard with revenue KPIs and charts" loading="lazy" width="1100" height="1050">
-      <figcaption>Fig. 5 — The dashboard.</figcaption>
-    </figure>
-  </article>
-
-  <!-- Fake news -->
-  <article class="project">
-    <div class="p-body">
-      <h3>Fake news detection</h3>
-      <p class="p-sub">NLP with a reproducible pipeline</p>
-      <p>72,134 news articles, cleaned and lemmatised, turned into TF-IDF features and classified as real or fake. DVC runs the pipeline stages, MLflow records every run, FastAPI serves the model.</p>
-      <ul class="stack"><li>scikit-learn</li><li>NLTK</li><li>DVC</li><li>MLflow</li><li>FastAPI</li><li>Docker</li></ul>
-      <p class="links"><a href="https://github.com/QosainBukhari/Fake_News_Detection_End_to_End_MLOPS">Code on GitHub</a></p>
-    </div>
-    <figure class="p-plot">
-      <svg class="bars" data-unit="%" data-min="92" data-max="96.5" data-label="F1 score on the test split (%) — axis starts at 92%" data-bars='[["Decision tree",93.53],["Gradient boosting",94.45],["Logistic regression",95.07],["Random forest",95.80,"bold"]]' role="img" aria-label="F1 score by model: decision tree 93.53 percent, gradient boosting 94.45, logistic regression 95.07, random forest 95.80."></svg>
-      <figcaption>Fig. 6 — Four models compared. Note the axis starts at 92%.</figcaption>
-    </figure>
-  </article>
-
-  <!-- Chest CT -->
-  <article class="project">
-    <div class="p-body">
-      <h3>Chest CT classification</h3>
-      <p class="p-sub">Transfer learning with DVC and MLflow</p>
-      <p>VGG16 transfer learning to tell adenocarcinoma from normal CT scans, run as a four-stage DVC pipeline. My first version reported 100% accuracy — too good to be true.</p>
-      <p>The cause: training held out the first 20% of images, evaluation used the first 30%. A third of the "unseen" images had been trained on. One shared split constant fixed it.</p>
-      <ul class="stack"><li>TensorFlow / Keras</li><li>VGG16</li><li>DVC</li><li>MLflow</li><li>Flask</li></ul>
-      <p class="links"><a href="https://github.com/QosainBukhari/Chest_CT_Scan_Classification_End_to_end_Project_MLOPS">Code on GitHub</a></p>
-    </div>
-    <figure class="p-plot">
-      <svg id="leakPlot" viewBox="0 0 520 240" role="img" aria-labelledby="lk-t">
-        <title id="lk-t">Training used images from 20 to 100 percent; evaluation used 0 to 30 percent, so 20 to 30 percent overlapped.</title>
-      </svg>
-      <figcaption>Fig. 7 — Where the leak was. Same images, two different splits.</figcaption>
-    </figure>
-  </article>
-
-  <p class="more">Older and smaller projects — churn prediction, phishing detection, wine quality, student performance — are on <a href="https://github.com/QosainBukhari?tab=repositories">my GitHub</a>.</p>
-
-  <table class="title-block" aria-label="Sheet details">
-    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>2 of 5</td></tr>
-    <tr><th>Subject</th><td colspan="3">Projects</td></tr>
-  </table>
+<section class="section" aria-labelledby="results-title">
+<div class="wrap">
+<div class="section-head">
+<div><p class="eyebrow">Results</p><h2 id="results-title">Measured on data the models never saw</h2></div>
+<p>Each number comes from a held-out test set, with the context you need to read it.</p>
+</div>
+<div class="metrics"><div class="metric reveal"><span class="num">89.9%</span><span class="what">mAP@50, accident detection</span><span class="ctx">Custom YOLOv12 model on a 1,800-image held-out test set, with 92.5% precision and 86.8% recall.</span></div><div class="metric reveal"><span class="num">−76%</span><span class="what">Cost of wrong decisions</span><span class="ctx">Hotel cancellation model with a threshold chosen by business cost: €40.86 down to €9.69 per booking.</span></div><div class="metric reveal"><span class="num">0.824</span><span class="what">ROC-AUC on future bookings</span><span class="ctx">Tested on the newest 20% of arrivals after finding and removing 6 columns that leaked the answer.</span></div><div class="metric reveal"><span class="num">85%</span><span class="what">Retrieval accuracy, RAG</span><span class="ctx">PDF chatbot with page citations: 90% of answers faithful to the source, 3.2 s average response.</span></div></div>
+</div>
 </section>
 
-<!-- ============ SHEET 3: TOOLKIT ============ -->
-<section class="sheet" id="toolkit" aria-labelledby="toolkit-h">
-  <div class="sheet-head">
-    <h2 id="toolkit-h">Toolkit</h2>
-    <p class="sheet-note">Grouped by where it sits in a project, from raw data to a running service.</p>
-  </div>
-
-  <ol class="flow">
-    <li><h3>Data</h3><p>Python, SQL, Pandas, NumPy, MySQL, MongoDB, Pandera, web scraping with BeautifulSoup</p></li>
-    <li><h3>Modelling</h3><p>scikit-learn, XGBoost, Optuna, PyTorch, TensorFlow/Keras, OpenCV, YOLO (Ultralytics), NLTK</p></li>
-    <li><h3>LLM apps</h3><p>LangChain, ChromaDB, Sentence-Transformers, Groq, Ollama</p></li>
-    <li><h3>Checking</h3><p>Leakage analysis, time-based splits, SHAP, Evidently drift reports, pytest</p></li>
-    <li><h3>Shipping</h3><p>FastAPI, Flask, Streamlit, Docker, DVC, MLflow, GitHub Actions, Vercel</p></li>
-  </ol>
-  <p class="pencil">learning now: LangGraph &amp; agentic RAG, evaluating LLM apps properly</p>
-
-  <table class="title-block" aria-label="Sheet details">
-    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>3 of 5</td></tr>
-    <tr><th>Subject</th><td colspan="3">Toolkit</td></tr>
-  </table>
+<section class="section band" aria-labelledby="featured-title">
+<div class="wrap">
+<div class="section-head">
+<div><p class="eyebrow">Featured projects</p><h2 id="featured-title">Tested, containerised and open on GitHub</h2></div>
+<a class="btn" href="projects.html">All projects <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+<div class="grid-3">
+<article class="pcard reveal" data-category="Tabular ML|MLOps">
+<div class="shot"><img src="assets/img/radar-predict.jpg" alt="Cancellation Radar web app: a booking form, a risk dial at over 99% and the SHAP factors behind the score" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-01</span><span class="tag live">● Live demo</span></div>
+<div class="pbody">
+<div class="spec">binary classification · 119,390 bookings · time-based split</div>
+<h3><a href="projects/cancellation-radar.html">Cancellation Radar</a></h3>
+<p>Scores every new hotel booking for cancellation risk at the moment it is made, explains the score, and flags only the bookings worth acting on.</p>
+<ul class="chips"><li><b>94%</b> of cancellations caught</li><li><b>−76%</b> cost of mistakes</li><li><b>0.824</b> ROC-AUC</li></ul>
+<ul class="badges" aria-label="Tools"><li>XGBoost</li><li>Optuna</li><li>SHAP</li><li>MLflow</li><li>DVC</li><li>Pandera</li></ul>
+<div class="plinks"><a href="https://cancellation-radar.vercel.app" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/QosainBukhari/Hotel_Booking_cancellation_Prediction" target="_blank" rel="noopener">Code</a><a class="case" href="projects/cancellation-radar.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+<article class="pcard reveal" data-category="Computer Vision">
+<div class="shot"><img src="assets/img/accident-pred.jpg" alt="YOLOv12 predictions on validation images, with boxes drawn around fire and smoke" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-02</span><span class="tag">Final year project</span></div>
+<div class="pbody">
+<div class="spec">object detection · YOLOv12n · 3 classes</div>
+<h3><a href="projects/accident-detection.html">AI Accident Detection &amp; Emergency Response</a></h3>
+<p>A custom YOLOv12 model that spots road accidents in images and video, rates their severity and alerts responders with annotated evidence.</p>
+<ul class="chips"><li><b>89.9%</b> mAP@50</li><li><b>92.5%</b> precision</li><li><b>86.8%</b> recall</li></ul>
+<ul class="badges" aria-label="Tools"><li>YOLOv12</li><li>PyTorch</li><li>OpenCV</li><li>FastAPI</li><li>React</li><li>MySQL</li></ul>
+<div class="plinks"><a href="https://github.com/QosainBukhari/Accident_detection_system_Yolov12" target="_blank" rel="noopener">Code</a><a class="case" href="projects/accident-detection.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+<article class="pcard reveal" data-category="GenAI & RAG">
+<div class="shot"><img src="assets/img/rag-chat.jpg" alt="Document Q&amp;A chatbot answering &#x27;what is machine learning&#x27; from an uploaded lecture PDF" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-03</span><span class="tag">RAG</span></div>
+<div class="pbody">
+<div class="spec">retrieval-augmented generation · Llama 3.1 8B · ChromaDB</div>
+<h3><a href="projects/rag-chatbot.html">Document Q&amp;A RAG Chatbot</a></h3>
+<p>Upload a PDF and ask questions about it. Answers are grounded in the document and cite the pages they came from.</p>
+<ul class="chips"><li><b>85%</b> retrieval accuracy</li><li><b>90%</b> faithful answers</li><li><b>3.2 s</b> avg response</li></ul>
+<ul class="badges" aria-label="Tools"><li>LangChain</li><li>ChromaDB</li><li>Sentence Transformers</li><li>Llama 3.1 (Groq)</li><li>FastAPI</li><li>Streamlit</li></ul>
+<div class="plinks"><a href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot" target="_blank" rel="noopener">Code</a><a class="case" href="projects/rag-chatbot.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
+</div>
+</article>
+</div>
+</div>
 </section>
 
-<!-- ============ SHEET 4: ABOUT ============ -->
-<section class="sheet about" id="about" aria-labelledby="about-h">
-  <div class="sheet-head">
-    <h2 id="about-h">About</h2>
-  </div>
-  <div class="about-grid">
-    <figure class="taped">
-      <img src="assets/qosain.jpg" alt="Qosain Bukhari smiling on a bridge in Kashmir" width="480" height="480" loading="lazy">
-      <figcaption>Kashmir, where I live and work.</figcaption>
-    </figure>
-    <div class="about-text">
-      <p>I'm a Software Engineering graduate from Mirpur University of Science &amp; Technology. I like the part of machine learning that happens after the notebook: making sure the number is real, then making the model usable by someone else.</p>
-      <p>I work on modest hardware, so I lean on free tools — Kaggle and Colab GPUs, open-source models, free-tier hosting — and on keeping things small enough to run.</p>
-
-      <h3>Timeline</h3>
-      <ol class="timeline">
-        <li><span class="when">2025 – now</span><span class="what">Freelance ML engineer — models, RAG chatbots and computer-vision pipelines for direct clients</span></li>
-        <li><span class="when">Jul – Oct 2025</span><span class="what">Machine learning intern, Pixels Inn Institute, Mirpur</span></li>
-        <li><span class="when">2022 – 2026</span><span class="what">BS Software Engineering, MUST — CGPA 3.40 / 4.0. Final year project: accident detection with YOLOv12</span></li>
-      </ol>
-    </div>
-  </div>
-
-  <table class="title-block" aria-label="Sheet details">
-    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>4 of 5</td></tr>
-    <tr><th>Subject</th><td colspan="3">About</td></tr>
-  </table>
+<section class="section" aria-labelledby="about-title">
+<div class="wrap">
+<div class="split about-panel reveal">
+<div>
+<p class="eyebrow">About</p>
+<h2 id="about-title">Software engineer by training, ML engineer by choice.</h2>
+<p class="muted">I build models the way I'd build any software: tested, versioned and deployable. I check the data for leakage before I trust a score, test on data that looks like the future, and choose thresholds by what a mistake really costs.</p>
+<div class="actions">
+<a class="btn" href="about.html">More about me <span class="arrow" aria-hidden="true">→</span></a>
+<a class="btn" href="resume.html">View resume</a>
+</div>
+</div>
+<dl class="facts">
+<div><dt><span class="f-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c2 2 10 2 12 0v-5M22 9v6"/></svg></span>Education</dt><dd>BS Software Engineering, MUST Mirpur (2022–2026), CGPA 3.40</dd></div>
+<div><dt><span class="f-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg></span>Experience</dt><dd>Machine Learning Intern, Pixels Inn Institute (2025)</dd></div>
+<div><dt><span class="f-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></span>Focus</dt><dd>Computer vision, RAG, tabular ML, MLOps</dd></div>
+<div><dt><span class="f-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>Based in</dt><dd>Azad Kashmir, Pakistan</dd></div>
+</dl>
+</div>
+</div>
 </section>
-
-<!-- ============ SHEET 5: CONTACT ============ -->
-<section class="sheet contact" id="contact" aria-labelledby="contact-h">
-  <div class="sheet-head">
-    <h2 id="contact-h">Let's talk</h2>
-    <p class="sheet-note">Hiring for a junior ML role, or need a model built? Email is fastest — I reply within a day.</p>
-  </div>
-  <dl class="contacts">
-    <div><dt>Email</dt><dd><a href="mailto:bukhariqosain824@gmail.com">bukhariqosain824@gmail.com</a></dd></div>
-    <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/syedqosainbukhari">linkedin.com/in/syedqosainbukhari</a></dd></div>
-    <div><dt>GitHub</dt><dd><a href="https://github.com/QosainBukhari">github.com/QosainBukhari</a></dd></div>
-    <div><dt>Resume</dt><dd><a href="Resume.pdf">Download PDF</a></dd></div>
-  </dl>
-
-  <table class="title-block" aria-label="Sheet details">
-    <tr><th>Drawn by</th><td>Q. Bukhari</td><th>Sheet</th><td>5 of 5</td></tr>
-    <tr><th>Subject</th><td colspan="3">Contact</td></tr>
-  </table>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<div class="contact reveal">
+<div>
+<span class="status">Open to work</span>
+<h2 id="contact-title">Let's talk about ML engineering roles.</h2>
+<p>I'm looking for a junior machine learning engineer role or an ML internship. If you have a model that needs to get from a notebook to production, email or WhatsApp is the quickest way to reach me.</p>
+<ul class="contact-meta">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>On-site in Pakistan or remote</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Azad Kashmir, Pakistan</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pakistan time (UTC+5)</li>
+</ul>
+<div class="actions">
+<a class="btn primary" href="mailto:bukhariqosain824@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+<ul class="contact-list">
+<li><button class="c-item" type="button" data-copy="bukhariqosain824@gmail.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span><span class="c-txt"><span class="k">Email · click to copy</span><span class="v">bukhariqosain824@gmail.com</span></span><span class="c-go" aria-hidden="true">⧉</span></button></li>
+<li><a class="c-item" href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></span><span class="c-txt"><span class="k">WhatsApp</span><span class="v">Message me on WhatsApp</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></span><span class="c-txt"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/<wbr>syedqosainbukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://github.com/QosainBukhari" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></span><span class="c-txt"><span class="k">GitHub</span><span class="v">github.com/QosainBukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+</div>
 </section>
-
 </main>
-
-<footer class="pad-foot">
-  <p>Plotted by hand in HTML, CSS and a little JavaScript. Hosted on GitHub Pages. <a href="v1/">Previous version</a></p>
+<footer class="site-footer">
+<div class="footer-in">
+<div class="footer-brand">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">QB</span>Qosain Bukhari</a>
+<p>Machine learning engineer. I train models and ship them with data checks, honest evaluation, an API, Docker and CI around them.</p>
+</div>
+<nav aria-labelledby="f-pages"><h2 id="f-pages">Pages</h2><ul class="footer-links"><li><a href="projects.html">Projects</a></li><li><a href="about.html">About</a></li><li><a href="resume.html">Resume</a></li><li><a href="Qosain_Bukhari_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav>
+<div><h2>Connect</h2><ul class="socials">
+<li><a href="mailto:bukhariqosain824@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></a></li>
+<li><a href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></a></li>
+<li><a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> Syed Qosain Bukhari</span><a href="#main">Back to top ↑</a></div>
 </footer>
-
-<script src="script.js"></script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/js/site.js" defer></script>
 </body>
 </html>

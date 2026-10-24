@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Document Q&amp;A RAG Chatbot | Qosain Bukhari</title>
+<meta name="description" content="Upload a PDF and ask questions about it. Answers are grounded in the document and cite the pages they came from.">
+<meta name="author" content="Qosain Bukhari">
+<meta name="theme-color" content="#e3ead5">
+<link rel="canonical" href="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/rag-chatbot.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Document Q&amp;A RAG Chatbot | Qosain Bukhari">
+<meta property="og:description" content="Upload a PDF and ask questions about it. Answers are grounded in the document and cite the pages they came from.">
+<meta property="og:url" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/rag-chatbot.html">
+<meta property="og:image" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/assets/img/qosain.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%231f2a56%22/><text x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2226%22 fill=%22%23eef2e4%22 text-anchor=%22middle%22>QB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-in">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span><span>Qosain Bukhari<small>Engineering computation pad</small></span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="main-nav" aria-label="Main"><a href="../index.html">Home</a><a href="../projects.html" aria-current="page">Projects</a><a href="../about.html">About</a><a href="../resume.html">Resume</a><a href="../index.html#contact">Contact</a></nav>
+</div>
+</header>
+<main id="main">
+<div class="wrap">
+<section class="case-hero" aria-labelledby="t">
+<p class="crumbs"><a href="../projects.html">Projects</a> / Document Q&amp;A RAG Chatbot</p>
+<p class="spec">retrieval-augmented generation · Llama 3.1 8B · ChromaDB</p>
+<h1 id="t" class="page-title">Document Q&amp;A RAG Chatbot</h1>
+<p class="lede">A retrieval-augmented generation chatbot: PDFs are chunked, embedded with MiniLM and stored in a persistent ChromaDB index. Questions retrieve the most relevant chunks, and Llama 3.1 on Groq answers from them with page-level citations and conversation memory.</p>
+<div class="actions"><a class="btn primary" href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span></a><a class="btn" href="../projects.html">All projects</a></div>
+</section>
+<figure class="figure reveal"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>rag-chatbot</span></div><img src="../assets/img/rag-full.jpg" alt="Document Q&amp;A chatbot answering &#x27;what is machine learning&#x27; from an uploaded lecture PDF" loading="eager" decoding="async"><figcaption>The Streamlit app answering from a lecture PDF, with the source file and page for every chunk it used.</figcaption></figure>
+<div class="metrics"><div class="metric reveal"><span class="num">85%</span><span class="what">Retrieval accuracy</span><span class="ctx">Questions where the retrieved chunks contained the answer, over 20 hand-written Q&A pairs.</span></div><div class="metric reveal"><span class="num">90%</span><span class="what">Answer faithfulness</span><span class="ctx">Answers fully supported by the retrieved text, with no invented facts, checked by hand.</span></div><div class="metric reveal"><span class="num">3.2 s</span><span class="what">Average response</span><span class="ctx">End to end, from question to cited answer, using Llama 3.1 8B on Groq.</span></div><div class="metric reveal"><span class="num">6</span><span class="what">Automated tests</span><span class="ctx">Loader, chunker, embeddings, vector store, retriever and full RAG response, on GitHub Actions CI.</span></div></div>
+<div class="case-grid">
+<article class="case-body">
+<h2><span class="hn">01</span>The problem</h2><p>Long PDFs such as lecture notes, research papers and textbooks are slow to search, and a plain LLM answers confidently without saying where its answer came from. For study or work notes you need answers that come <em>from the document</em> and show the page so you can check them.</p><h2><span class="hn">02</span>Data</h2><p>I evaluated it by hand on <strong>20 question and answer pairs</strong> across several PDFs, including an ML textbook, a research paper and lecture notes, scoring whether retrieval found the right passage and whether the answer stayed faithful to it.</p><h2><span class="hn">03</span>Approach</h2><ol class="steps"><li><b>Ingest.</b> Extract the text from each uploaded PDF and split it into overlapping chunks that keep the source file and page number.</li><li><b>Embed and store.</b> Encode chunks with all-MiniLM-L6-v2 (Sentence Transformers) into a persistent ChromaDB index, so documents don't need re-embedding after a restart.</li><li><b>Retrieve and answer.</b> Semantic search pulls the closest chunks; the prompt combines them with the question and recent conversation, and Llama 3.1 8B on Groq writes the answer.</li><li><b>Cite sources.</b> Every answer returns the source file and page for each chunk it used, so the reader can check it.</li><li><b>Ship it.</b> FastAPI endpoints (/upload, /chat, /health) with startup model loading and structured logging, a Streamlit UI, Docker Compose, and Pytest on GitHub Actions.</li></ol><h2><span class="hn">04</span>Results</h2><div class="table-wrap"><table><thead><tr><th>Metric</th><th class="n">Result</th></tr></thead><tbody><tr><td>Retrieval accuracy</td><td class="n">85%</td></tr><tr class="best"><td>Answer faithfulness</td><td class="n">90%</td></tr><tr><td>Average response time</td><td class="n">3.2 s</td></tr><tr><td>Embedding model</td><td class="n">all-MiniLM-L6-v2</td></tr><tr><td>LLM</td><td class="n">Llama 3.1 8B via Groq</td></tr></tbody></table></div><p>Twenty hand-checked pairs is a small sample: it shows the pipeline works, but it isn't a benchmark.</p><div class="callout"><p><b>Example.</b> Asked “What is self-attention?”, it answered from the Transformer paper and cited pages 2 and 6, the definition and the section that explains it.</p></div><h2><span class="hn">05</span>System and deployment</h2><div class="flow"><div class="node"><b>Streamlit UI</b><span>upload and ask</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>FastAPI</b><span>/upload, /chat</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Retriever</b><span>MiniLM + ChromaDB</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Llama 3.1 8B</b><span>via Groq</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Answer</b><span>with page citations</span></div></div><p>Docker Compose runs the API and the UI together; configuration (model names, paths, the Groq key) comes from environment variables.</p><h2><span class="hn">06</span>Limitations</h2><ul><li>The 20-pair manual evaluation is small; an automated evaluation set would give firmer numbers.</li><li>Retrieval is vector-only. Hybrid search (BM25 + vectors) would help with exact terms and names.</li><li>No authentication, response streaming or cloud deployment yet.</li></ul>
+</article>
+<aside class="aside" aria-label="Project facts">
+<div class="box"><h3>At a glance</h3><ul><li>PDF upload, persistent index</li><li>MiniLM embeddings, ChromaDB</li><li>Llama 3.1 8B on Groq</li><li>Page-level citations, memory</li><li>FastAPI, Streamlit, Docker</li><li>6 tests on GitHub Actions</li></ul></div>
+<div class="box"><h3>Tools</h3><ul class="badges"><li>LangChain</li><li>ChromaDB</li><li>Sentence Transformers</li><li>Llama 3.1 (Groq)</li><li>FastAPI</li><li>Streamlit</li><li>Docker</li><li>GitHub Actions</li></ul></div>
+<div class="box"><h3>Links</h3><a class="btn sm" href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot" target="_blank" rel="noopener">Source code ↗</a></div>
+</aside>
+</div>
+<nav class="pager" aria-label="More projects">
+<a href="accident-detection.html"><small>← Previous</small>AI Accident Detection &amp; Emergency Response</a>
+<a class="next" href="fake-news-detection.html"><small>Next →</small>Fake News Detection</a>
+</nav>
+</div>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<div class="contact reveal">
+<div>
+<span class="status">Open to work</span>
+<h2 id="contact-title">Let's talk about ML engineering roles.</h2>
+<p>I'm looking for a junior machine learning engineer role or an ML internship. If you have a model that needs to get from a notebook to production, email or WhatsApp is the quickest way to reach me.</p>
+<ul class="contact-meta">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>On-site in Pakistan or remote</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Azad Kashmir, Pakistan</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pakistan time (UTC+5)</li>
+</ul>
+<div class="actions">
+<a class="btn primary" href="mailto:bukhariqosain824@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+<ul class="contact-list">
+<li><button class="c-item" type="button" data-copy="bukhariqosain824@gmail.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span><span class="c-txt"><span class="k">Email · click to copy</span><span class="v">bukhariqosain824@gmail.com</span></span><span class="c-go" aria-hidden="true">⧉</span></button></li>
+<li><a class="c-item" href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></span><span class="c-txt"><span class="k">WhatsApp</span><span class="v">Message me on WhatsApp</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></span><span class="c-txt"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/<wbr>syedqosainbukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://github.com/QosainBukhari" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></span><span class="c-txt"><span class="k">GitHub</span><span class="v">github.com/QosainBukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-in">
+<div class="footer-brand">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span>Qosain Bukhari</a>
+<p>Machine learning engineer. I train models and ship them with data checks, honest evaluation, an API, Docker and CI around them.</p>
+</div>
+<nav aria-labelledby="f-pages"><h2 id="f-pages">Pages</h2><ul class="footer-links"><li><a href="../projects.html">Projects</a></li><li><a href="../about.html">About</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../Qosain_Bukhari_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav>
+<div><h2>Connect</h2><ul class="socials">
+<li><a href="mailto:bukhariqosain824@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></a></li>
+<li><a href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></a></li>
+<li><a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> Syed Qosain Bukhari</span><a href="#main">Back to top ↑</a></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
