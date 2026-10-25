@@ -60,13 +60,13 @@
 </div>
 </article>
 <article class="pcard reveal" data-category="GenAI & RAG">
-<div class="shot"><img src="assets/img/rag-chat.jpg" alt="Document Q&amp;A chatbot answering &#x27;what is machine learning&#x27; from an uploaded lecture PDF" width="1280" height="800" loading="lazy" decoding="async"><span class="pno">P-03</span><span class="tag">RAG</span></div>
+<div class="shot"><img src="assets/img/rag-chat.jpg" alt="Document Q&amp;A chat UI answering questions about an uploaded PDF, with page citations under each answer" width="1280" height="638" loading="lazy" decoding="async"><span class="pno">P-03</span><span class="tag">Advanced RAG</span></div>
 <div class="pbody">
-<div class="spec">retrieval-augmented generation · Llama 3.1 8B · ChromaDB</div>
+<div class="spec">advanced RAG · hybrid search · reranking · 25-question eval</div>
 <h3><a href="projects/rag-chatbot.html">Document Q&amp;A RAG Chatbot</a></h3>
-<p>Upload a PDF and ask questions about it. Answers are grounded in the document and cite the pages they came from.</p>
-<ul class="chips"><li><b>85%</b> retrieval accuracy</li><li><b>90%</b> faithful answers</li><li><b>3.2 s</b> avg response</li></ul>
-<ul class="badges" aria-label="Tools"><li>LangChain</li><li>ChromaDB</li><li>Sentence Transformers</li><li>Llama 3.1 (Groq)</li><li>FastAPI</li><li>Streamlit</li></ul>
+<p>Chat with your PDFs, with page citations. It started as naive RAG and was upgraded to hybrid search, reranking and compression, with every technique a config switch and measured.</p>
+<ul class="chips"><li><b>0.95</b> faithfulness</li><li><b>0.98</b> MRR</li><li><b>63</b> tests passing</li></ul>
+<ul class="badges" aria-label="Tools"><li>LangChain</li><li>ChromaDB</li><li>BM25 + RRF</li><li>Cross-encoder</li><li>Groq</li><li>FastAPI</li></ul>
 <div class="plinks"><a href="https://github.com/QosainBukhari/Document-Q-A-RAG-Chatbot" target="_blank" rel="noopener">Code</a><a class="case" href="projects/rag-chatbot.html">View project <span class="arrow" aria-hidden="true">→</span></a></div>
 </div>
 </article>
