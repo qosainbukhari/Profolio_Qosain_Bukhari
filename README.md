@@ -1,6 +1,6 @@
 # Qosain Bukhari — Portfolio
 
-Personal portfolio of **Qosain Bukhari**, junior machine learning engineer (computer vision, RAG, tabular ML, MLOps).
+Personal portfolio of **Qosain Bukhari**, junior AI/ML engineer (computer vision, RAG, tabular ML, MLOps).
 
 🔗 **Live site:** https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/
 
