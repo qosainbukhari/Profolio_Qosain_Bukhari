@@ -409,3 +409,12 @@ tr.dim td { color: var(--ink-mute); font-style: italic; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* SQL / code sample on case pages */
+.code { margin: 6px 0 18px; padding: 16px 18px; overflow-x: auto; background: var(--ink); color: var(--paper-2); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--red); font: 500 13.5px/1.6 var(--f-mono); }
+.code code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
+/* data-analysis notebook cards */
+.analysis { margin-top: 72px; }
+.acard .shot { aspect-ratio: 16 / 10; background: var(--paper-3); }
+.acard .shot img { object-fit: contain; object-position: center; padding: 10px; background: #fff; }
+.mini-chart { display: block; width: 100%; height: 100%; padding: 12px 10px 6px; }

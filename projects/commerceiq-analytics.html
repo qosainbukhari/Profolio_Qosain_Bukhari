@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CommerceIQ Analytics Platform | Qosain Bukhari</title>
+<meta name="description" content="Turns about 100K raw e-commerce orders into a business-intelligence dashboard: a Pandas ETL into MySQL, 13 SQL analytics queries, a FastAPI backend and a React dashboard.">
+<meta name="author" content="Qosain Bukhari">
+<meta name="theme-color" content="#e3ead5">
+<link rel="canonical" href="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/commerceiq-analytics.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CommerceIQ Analytics Platform | Qosain Bukhari">
+<meta property="og:description" content="Turns about 100K raw e-commerce orders into a business-intelligence dashboard: a Pandas ETL into MySQL, 13 SQL analytics queries, a FastAPI backend and a React dashboard.">
+<meta property="og:url" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/projects/commerceiq-analytics.html">
+<meta property="og:image" content="https://qosainbukhari.github.io/Profolio_Qosain_Bukhari/assets/img/qosain.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%231f2a56%22/><text x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2226%22 fill=%22%23eef2e4%22 text-anchor=%22middle%22>QB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+<div class="header-in">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span><span>Qosain Bukhari<small>Engineering computation pad</small></span></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="main-nav" aria-label="Main"><a href="../index.html">Home</a><a href="../projects.html" aria-current="page">Projects</a><a href="../about.html">About</a><a href="../resume.html">Resume</a><a href="../index.html#contact">Contact</a></nav>
+</div>
+</header>
+<main id="main">
+<div class="wrap">
+<section class="case-hero" aria-labelledby="t">
+<p class="crumbs"><a href="../projects.html">Projects</a> / CommerceIQ Analytics Platform</p>
+<p class="spec">SQL analytics · MySQL · 99,441 orders · full stack</p>
+<h1 id="t" class="page-title">CommerceIQ Analytics Platform</h1>
+<p class="lede">A full-stack analytics platform that turns raw e-commerce transactions into an interactive business-intelligence dashboard. CSV files are cleaned and loaded into a relational MySQL database with Pandas; 13 SQL queries compute KPIs, revenue trends, growth and rankings; FastAPI serves them; and a React dashboard shows them as charts and tables.</p>
+<div class="actions"><a class="btn primary" href="https://github.com/QosainBukhari/CommerceIQ_Analytics_Platform" target="_blank" rel="noopener">Code on GitHub <span aria-hidden="true">↗</span></a><a class="btn" href="../projects.html">All projects</a></div>
+</section>
+<figure class="figure reveal"><div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>commerceiq-analytics</span></div><img src="../assets/img/commerceiq.jpg" alt="CommerceIQ dashboard with total revenue, orders and customers, a monthly revenue chart and a revenue table for 2018" width="1280" height="1160" loading="eager" decoding="async"><figcaption>The dashboard for 2018: KPI cards from the SQL KPI query, and monthly revenue from the time-series query, as a chart and a table.</figcaption></figure>
+<div class="metrics"><div class="metric reveal"><span class="num">99,441</span><span class="what">Orders analysed</span><span class="ctx">Every order in the Olist dataset, loaded from CSV into MySQL and queried with SQL.</span></div><div class="metric reveal"><span class="num">16.0M</span><span class="what">Total payment value</span><span class="ctx">Sum of all payments (Brazilian reais) behind the dashboard's revenue KPI.</span></div><div class="metric reveal"><span class="num">13</span><span class="what">SQL query files</span><span class="ctx">KPIs, revenue, average order value, products, sellers, states, payments, order status and daily orders.</span></div><div class="metric reveal"><span class="num">7</span><span class="what">Dashboard pages</span><span class="ctx">Dashboard, products, categories, orders, payments, sellers and geography, with a year filter.</span></div></div>
+<div class="case-grid">
+<article class="case-body">
+<h2><span class="hn">01</span>The problem</h2><p>Raw transaction exports don't answer anything on their own. A business wants to see revenue over time, its best products and sellers, where its customers are and how they pay, in one place and straight from the database rather than in one-off spreadsheets.</p><h2><span class="hn">02</span>Data</h2><p>The <strong>Olist Brazilian E-Commerce public dataset</strong>: about 100K orders from 2016 to 2018, split across linked tables for customers, orders, order items, products, sellers, payments and reviews. That structure makes it a realistic exercise in relational modelling and JOIN-heavy SQL.</p><h2><span class="hn">03</span>Approach</h2><ol class="steps"><li><b>Model the data relationally.</b> Seven MySQL tables (customers, orders, order_items, products, sellers, payments, reviews) linked by order, customer, product and seller IDs.</li><li><b>Load it with a Pandas ETL.</b> A reusable loader reads each CSV, keeps the needed columns and writes it to MySQL through SQLAlchemy and PyMySQL, with credentials read from <code>.env</code>.</li><li><b>Answer business questions in SQL.</b> Thirteen query files, kept separate from the Python code: JOINs across orders, payments, order items, products and sellers, with GROUP BY aggregations for revenue, top products, top sellers, customer states, payment types and order status.</li><li><b>Measure growth over time.</b> A CTE builds monthly revenue, and a <code>LAG()</code> window function compares each month with the previous one to compute month-over-month growth.</li><li><b>Serve the results.</b> A FastAPI backend runs each query and exposes it as one of 12 GET endpoints, covered by 10 Pytest endpoint tests.</li><li><b>Build the dashboard.</b> React, Tailwind CSS and Recharts across 7 pages, with KPI cards, charts, tables and a year filter; Docker Compose runs MySQL, the backend and the frontend together.</li></ol><p>The month-over-month growth query, from <code>backend/queries/monthly_growth.sql</code>:</p><pre class="code"><code>WITH monthly_revenue AS (
+    SELECT DATE_FORMAT(o.order_purchase_timestamp, &#x27;%Y-%m&#x27;) AS `year_month`,
+           SUM(p.payment_value) AS revenue
+    FROM orders o
+    INNER JOIN payments p ON o.order_id = p.order_id
+    GROUP BY `year_month`
+),
+growth_data AS (
+    SELECT `year_month`, revenue,
+           LAG(revenue) OVER (ORDER BY `year_month`) AS previous_month_revenue
+    FROM monthly_revenue
+)
+SELECT * FROM growth_data;</code></pre><h2><span class="hn">04</span>What the API answers</h2><div class="table-wrap"><table><thead><tr><th>Endpoint</th><th>Business question</th></tr></thead><tbody><tr><td><code>/kpis</code></td><td>Total revenue, orders and customers</td></tr><tr><td><code>/monthly-revenue?year=</code></td><td>How much revenue each month brought in</td></tr><tr><td><code>/monthly-growth</code></td><td>Month-over-month revenue growth (CTE + LAG)</td></tr><tr><td><code>/average-order-value</code></td><td>How much a typical order is worth</td></tr><tr><td><code>/top-products, /top-categories</code></td><td>What sells best</td></tr><tr><td><code>/top-sellers</code></td><td>Which sellers bring in the most revenue</td></tr><tr><td><code>/top-states, /top-customers</code></td><td>Where customers are and who spends most</td></tr><tr><td><code>/payment-analysis</code></td><td>How customers pay (card, boleto, voucher, debit)</td></tr><tr><td><code>/order-status, /daily-orders</code></td><td>Order pipeline health and daily volume</td></tr></tbody></table></div><div class="callout"><p><b>Reading the numbers carefully.</b> Building the dashboard surfaced three data issues that would mislead a business user: customer counts that are really order counts, two near-empty months at the end of the data, and reais shown as dollars. They are listed under limitations as the next fixes.</p></div><h2><span class="hn">05</span>System and deployment</h2><div class="flow"><div class="node"><b>CSV files</b><span>Olist dataset</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>Pandas ETL</b><span>clean + load</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>MySQL</b><span>7 relational tables</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>SQL queries</b><span>13 files</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>FastAPI</b><span>12 endpoints</span></div><span class="sep" aria-hidden="true">→</span><div class="node"><b>React dashboard</b><span>7 pages, Recharts</span></div></div><p>Docker Compose starts MySQL (with a named volume for the data), the FastAPI backend and the React frontend, served by nginx in its container.</p><h2><span class="hn">06</span>Limitations</h2><ul><li>Olist gives each order its own <code>customer_id</code>, so “total customers” equals total orders (99,441); counting <code>customer_unique_id</code> would give the real number of distinct customers.</li><li>The dataset ends in late 2018, so September and October 2018 show almost no revenue; the chart should stop at the last complete month.</li><li>Payment values are in Brazilian reais, but the dashboard labels them with “$”.</li><li>No authentication, caching or forecasting yet; Redis caching and a revenue forecast are the planned next steps.</li></ul>
+</article>
+<aside class="aside" aria-label="Project facts"><div class="box"><h3>At a glance</h3><ul><li>Olist dataset, 99,441 orders</li><li>7 relational MySQL tables</li><li>13 SQL query files</li><li>CTE + LAG growth analysis</li><li>FastAPI, 12 endpoints, 10 tests</li><li>React dashboard, Docker Compose</li></ul></div><div class="box"><h3>Tools</h3><ul class="badges"><li>SQL</li><li>MySQL</li><li>Pandas</li><li>SQLAlchemy</li><li>FastAPI</li><li>React</li><li>Tailwind CSS</li><li>Recharts</li><li>Docker Compose</li><li>Pytest</li></ul></div><div class="box"><h3>Links</h3><a class="btn sm" href="https://github.com/QosainBukhari/CommerceIQ_Analytics_Platform" target="_blank" rel="noopener">Source code ↗</a></div></aside>
+</div>
+<nav class="pager" aria-label="More projects">
+<a href="chest-ct-classification.html"><small>← Previous</small>Chest CT-Scan Classification</a>
+<a class="next" href="cancellation-radar.html"><small>Next →</small>Cancellation Radar</a>
+</nav>
+</div>
+<section class="section" id="contact" aria-labelledby="contact-title">
+<div class="wrap">
+<div class="contact reveal">
+<div>
+<span class="status">Open to work</span>
+<h2 id="contact-title">Let's talk about AI/ML intern or junior roles.</h2>
+<p>I'm looking for an AI/ML internship or a junior AI/ML engineer role. If you have a model that needs to get from a notebook to production, email or WhatsApp is the quickest way to reach me.</p>
+<ul class="contact-meta">
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>On-site in Pakistan or remote</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Azad Kashmir, Pakistan</li>
+<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Pakistan time (UTC+5)</li>
+</ul>
+<div class="actions">
+<a class="btn primary" href="mailto:bukhariqosain824@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+</div>
+</div>
+<ul class="contact-list">
+<li><button class="c-item" type="button" data-copy="bukhariqosain824@gmail.com"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></span><span class="c-txt"><span class="k">Email · click to copy</span><span class="v">bukhariqosain824@gmail.com</span></span><span class="c-go" aria-hidden="true">⧉</span></button></li>
+<li><a class="c-item" href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></span><span class="c-txt"><span class="k">WhatsApp</span><span class="v">Message me on WhatsApp</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></span><span class="c-txt"><span class="k">LinkedIn</span><span class="v">linkedin.com/in/<wbr>syedqosainbukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+<li><a class="c-item" href="https://github.com/QosainBukhari" target="_blank" rel="noopener"><span class="c-ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></span><span class="c-txt"><span class="k">GitHub</span><span class="v">github.com/QosainBukhari</span></span><span class="c-go" aria-hidden="true">↗</span></a></li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-in">
+<div class="footer-brand">
+<a class="brand" href="../index.html"><span class="brand-mark" aria-hidden="true">QB</span>Qosain Bukhari</a>
+<p>Junior AI/ML engineer. I train models and ship them with data checks, honest evaluation, an API, Docker and CI around them.</p>
+</div>
+<nav aria-labelledby="f-pages"><h2 id="f-pages">Pages</h2><ul class="footer-links"><li><a href="../projects.html">Projects</a></li><li><a href="../about.html">About</a></li><li><a href="../resume.html">Resume</a></li><li><a href="../Qosain_Bukhari_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li><li><a href="../index.html#contact">Contact</a></li></ul></nav>
+<div><h2>Connect</h2><ul class="socials">
+<li><a href="mailto:bukhariqosain824@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m4 7.5 8 5.5 8-5.5"/></svg></a></li>
+<li><a href="https://wa.me/923378624851?text=Hi%20Qosain%2C%20I%20saw%20your%20portfolio.%20Are%20you%20available%20for%20a%20quick%20chat%3F" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.6 8.6 0 1 1 8 19.4z"/><path d="M9 8.6c.2-.5.7-.6 1-.4l.9 1.6c.1.3 0 .6-.2.8l-.5.5c.5 1 1.3 1.9 2.4 2.4l.5-.5c.2-.2.5-.3.8-.2l1.6.9c.3.2.3.7-.1 1-.6.6-1.5.8-2.3.5a8 8 0 0 1-4.5-4.4c-.3-.8-.1-1.6.4-2.2z" fill="currentColor" stroke="none"/></svg></a></li>
+<li><a href="https://www.linkedin.com/in/syedqosainbukhari/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7.5 10.5V16.5M7.5 7.5v.01M11 16.5v-6M11 13.2c0-1.6 1-2.7 2.4-2.7s2.1 1 2.1 2.6v3.4"/></svg></a></li>
+<li><a href="https://github.com/QosainBukhari" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-1.9c-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.68.08-.68 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.49-.28-5.11-1.25-5.11-5.55 0-1.22.44-2.22 1.16-3.01-.12-.29-.5-1.43.11-2.98 0 0 .94-.3 3.09 1.15a10.7 10.7 0 0 1 5.62 0c2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.01 0 4.31-2.63 5.26-5.13 5.54.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8z"/></svg></a></li>
+</ul></div>
+</div>
+<div class="footer-bottom"><span>© <span id="year">2026</span> Syed Qosain Bukhari</span><a href="#main">Back to top ↑</a></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
